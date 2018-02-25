@@ -12,6 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .red
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -20,6 +22,28 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        print(#function)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print(#function)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        print(#function)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print(#function)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print(#function)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print(#function)
+    }
 
 }
-
