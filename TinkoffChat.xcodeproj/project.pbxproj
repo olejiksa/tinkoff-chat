@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EB15ED1D204310D800E5D5D6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EB15ED1C204310D800E5D5D6 /* .gitignore */; };
 		EB36979B203DD3620065EC99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB36979A203DD3620065EC99 /* AppDelegate.swift */; };
-		EB36979D203DD3620065EC99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB36979C203DD3620065EC99 /* ViewController.swift */; };
+		EB36979D203DD3620065EC99 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB36979C203DD3620065EC99 /* ProfileViewController.swift */; };
 		EB3697A2203DD3620065EC99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB3697A1203DD3620065EC99 /* Assets.xcassets */; };
 		EB3697A5203DD3620065EC99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */; };
+		EB912BF120470BDA00F62314 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB912BF020470BDA00F62314 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EB15ED1C204310D800E5D5D6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EB369797203DD3620065EC99 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB36979A203DD3620065EC99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EB36979C203DD3620065EC99 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EB36979C203DD3620065EC99 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EB3697A1203DD3620065EC99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB3697A4203DD3620065EC99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB3697A6203DD3620065EC99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB912BF020470BDA00F62314 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +38,6 @@
 		EB36978E203DD3620065EC99 = {
 			isa = PBXGroup;
 			children = (
-				EB15ED1C204310D800E5D5D6 /* .gitignore */,
 				EB369799203DD3620065EC99 /* TinkoffChat */,
 				EB369798203DD3620065EC99 /* Products */,
 			);
@@ -56,8 +55,9 @@
 			isa = PBXGroup;
 			children = (
 				EB36979A203DD3620065EC99 /* AppDelegate.swift */,
-				EB36979C203DD3620065EC99 /* ViewController.swift */,
+				EB36979C203DD3620065EC99 /* ProfileViewController.swift */,
 				EB3697A1203DD3620065EC99 /* Assets.xcassets */,
+				EB912BF020470BDA00F62314 /* Main.storyboard */,
 				EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */,
 				EB3697A6203DD3620065EC99 /* Info.plist */,
 			);
@@ -124,8 +124,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB3697A5203DD3620065EC99 /* LaunchScreen.storyboard in Resources */,
-				EB15ED1D204310D800E5D5D6 /* .gitignore in Resources */,
 				EB3697A2203DD3620065EC99 /* Assets.xcassets in Resources */,
+				EB912BF120470BDA00F62314 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB36979D203DD3620065EC99 /* ViewController.swift in Sources */,
+				EB36979D203DD3620065EC99 /* ProfileViewController.swift in Sources */,
 				EB36979B203DD3620065EC99 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,7 +273,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.olejiksa.TinkoffChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -288,7 +288,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.olejiksa.TinkoffChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
