@@ -37,16 +37,16 @@ class ProfileViewController: UIViewController {
     convenience init() {
         self.init(nibName: nil, bundle: nil)
         print(editButton.frame)
-        // It doesn't work because view is not loaded yet
+        // It doesn't work because this button is not initialized yet
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         /* Во viewDidLoad берутся значения,
-           аналогичные Interface Builder
+           аналогичные сториборду (Interface Builder)
            (она загружена, но реальный экран мы не знаем),
            а после появления вью на экране устройстве -
-           значения, относящиеся к вью на нем */
+           значения, относящиеся к вью на нем - вычисленные в AutoLayout */
         print(editButton.frame)
     }
     
