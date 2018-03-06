@@ -40,10 +40,10 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         /* Во viewDidLoad берутся значения,
-           аналогичные Interface Builder
-           (она загружена, но реальный экран мы не знаем),
-           а после появления вью на экране устройстве -
-           значения, относящиеся к вью на нем */
+         аналогичные сториборду (Interface Builder)
+         (она загружена, но реальный экран мы не знаем),
+         а после появления вью на экране устройстве -
+         значения, относящиеся к вью на нем - вычисленные в AutoLayout */
         print(editButton.frame)
     }
     
