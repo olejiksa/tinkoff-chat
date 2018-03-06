@@ -12,31 +12,28 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var pictureImageView: UIImageView!
-    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var userPictureImageView: UIImageView!
+    @IBOutlet weak var choosePictureButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var descriptionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cameraButton.layer.cornerRadius = 42.5
-        pictureImageView.layer.masksToBounds = true
-        pictureImageView.layer.cornerRadius = 42.5
+        choosePictureButton.layer.cornerRadius = choosePictureButton.frame.width / 2.0
+        
+        userPictureImageView.layer.masksToBounds = true
+        userPictureImageView.layer.cornerRadius = choosePictureButton.frame.width / 2.0
         
         editButton.layer.borderWidth = 2
         editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         editButton.layer.cornerRadius = 15
         
-        descriptionLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        descriptionLabel.numberOfLines = 0
-        
         print(editButton.frame)
     }
     
-    convenience init() {
-        self.init(nibName: nil, bundle: nil)
-        print(editButton.frame)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        // print(editButton.frame)
         // It doesn't work because view is not loaded yet
     }
     
@@ -139,7 +136,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             return
         }
         
-        pictureImageView.image = image
+        userPictureImageView.image = image
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

@@ -35,14 +35,14 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Alex Zverev" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Be-m4-2o7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" text="Alex Zverev" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Be-m4-2o7">
                                 <rect key="frame" x="16" y="340" width="288" height="33"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Love ❤️ iOS Development, like butterfiles and live in Tinkoff Bank" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ji-Pm-3rD">
-                                <rect key="frame" x="16" y="381" width="288" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Love ❤️ iOS Development, like butterfiles and live in Tinkoff Bank" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ji-Pm-3rD">
+                                <rect key="frame" x="16" y="381" width="288" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -81,10 +81,9 @@
                         <viewLayoutGuide key="safeArea" id="U7c-D3-aqP"/>
                     </view>
                     <connections>
-                        <outlet property="cameraButton" destination="HWM-5Z-Euc" id="74K-sz-he4"/>
-                        <outlet property="descriptionLabel" destination="7Ji-Pm-3rD" id="aye-2U-qt3"/>
+                        <outlet property="choosePictureButton" destination="HWM-5Z-Euc" id="74K-sz-he4"/>
                         <outlet property="editButton" destination="mbA-Xx-vce" id="dFm-I2-QpF"/>
-                        <outlet property="pictureImageView" destination="rxh-JC-svH" id="I2L-65-foL"/>
+                        <outlet property="userPictureImageView" destination="rxh-JC-svH" id="I2L-65-foL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kut-JQ-LX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
