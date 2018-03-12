@@ -12,9 +12,9 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var userPictureImageView: UIImageView!
-    @IBOutlet weak var choosePictureButton: UIButton!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet private weak var userPictureImageView: UIImageView!
+    @IBOutlet private weak var choosePictureButton: UIButton!
+    @IBOutlet private weak var editButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController {
         editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         editButton.layer.cornerRadius = 15
         
-        print(editButton.frame)
+        //print(editButton.frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,11 +44,11 @@ class ProfileViewController: UIViewController {
          (она загружена, но реальный экран мы не знаем),
          а после появления вью на экране устройстве -
          значения, относящиеся к вью на нем - вычисленные в AutoLayout */
-        print(editButton.frame)
+        //print(editButton.frame)
     }
     
-    @IBAction func choosePicture() {
-        print("Выбери изображение профиля")
+    @IBAction private func choosePicture() {
+        //print("Выбери изображение профиля")
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -65,7 +65,7 @@ class ProfileViewController: UIViewController {
         present(actionSheet, animated: true)
     }
     
-    func makeAction(_ sourceType: UIImagePickerControllerSourceType, appeal: String) {
+    private func makeAction(_ sourceType: UIImagePickerControllerSourceType, appeal: String) {
         guard UIImagePickerController.isSourceTypeAvailable(sourceType) else {
             showErrorMessage("Данное устройство не имеет доступа к \(appeal).")
             return
@@ -96,7 +96,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func authorize(using sourceType: UIImagePickerControllerSourceType) {
+    private func authorize(using sourceType: UIImagePickerControllerSourceType) {
         if sourceType == .photoLibrary {
             PHPhotoLibrary.requestAuthorization({ response in
                 if response == .authorized {
@@ -112,17 +112,21 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func openImagePicker(using sourceType: UIImagePickerControllerSourceType) {
+    private func openImagePicker(using sourceType: UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
         present(imagePicker, animated: true)
     }
     
-    func showErrorMessage(_ message: String) {
+    private func showErrorMessage(_ message: String) {
         let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
+    }
+    
+    @IBAction private func didCloseBarButtonItemTap(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 }
 
