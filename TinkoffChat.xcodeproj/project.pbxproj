@@ -85,15 +85,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		EB29C715205436130034D6D8 /* Extras */ = {
-			isa = PBXGroup;
-			children = (
-				EB29C7132054360B0034D6D8 /* DateExtension.swift */,
-			);
-			name = Extras;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		EB36978E203DD3620065EC99 = {
 			isa = PBXGroup;
 			children = (
@@ -114,8 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				EB36979A203DD3620065EC99 /* AppDelegate.swift */,
+				EB29C7132054360B0034D6D8 /* DateExtension.swift */,
 				EB3697A1203DD3620065EC99 /* Assets.xcassets */,
-				EB29C715205436130034D6D8 /* Extras */,
 				EB29C70F20533A980034D6D8 /* Models */,
 				EB29C70E20533A8F0034D6D8 /* Views */,
 				EB29C70D20533A740034D6D8 /* Controllers */,
