@@ -18,7 +18,7 @@ class MessageCell: UITableViewCell, MessageCellConfiguration {
         }
     }
     
-    var isIncoming: Bool = false
+    var isIncoming = false
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -22,15 +22,31 @@ class ConversationsListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
-     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
         if segue.identifier == "showSegue" {
             if let destination = segue.destination as? ConversationViewController {
                 if let indexPath = tableView.indexPathForSelectedRow {
-                    let name = conversations[indexPath.section][indexPath.row].name
-                    destination.navigationItem.title = name ?? "Name"
+                    destination.navigationItem.title = conversations[indexPath.section][indexPath.row].name ?? "Name"
+                }
+            }
+        } else if segue.identifier == "themesModalSegue" {
+            if let navigationDestination = segue.destination as? UINavigationController {
+                if let objcDestination = navigationDestination.viewControllers.first as? ThemesViewController {
+                    objcDestination.delegate = self
+                } else if let swiftDestination = navigationDestination.viewControllers.first as? SwiftThemesViewController {
+                    swiftDestination.closure = { [unowned self] (controller: SwiftThemesViewController, selectedTheme: UIColor?) in
+                        guard let theme = selectedTheme else {
+                            return
+                        }
+                        
+                        controller.view.backgroundColor = theme
+                        self.logThemeChanging(selectedTheme: theme)
+
+                        ThemesManager.sharedInstance.applyTheme(theme)
+                    }
                 }
             }
         }
@@ -96,12 +112,17 @@ class ConversationsListViewController: UIViewController {
                                              hasUnreadMessages: true))
     }
     
+    private func logThemeChanging(selectedTheme: UIColor) {
+        guard let rgb = selectedTheme.rgb() else { return }
+        print(rgb)
+    }
+    
 }
 
 extension ConversationsListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return conversations.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -139,6 +160,21 @@ extension ConversationsListViewController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showSegue", sender: indexPath);
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+}
+
+extension ConversationsListViewController: ThemesViewControllerDelegate {
+    
+    func themesViewController(_ controller: ThemesViewController?, didSelectTheme selectedTheme: UIColor?) {
+        guard let theme = selectedTheme else {
+            return
+        }
+        
+        controller?.view.backgroundColor = theme
+        logThemeChanging(selectedTheme: theme)
+        
+        ThemesManager.sharedInstance.applyTheme(theme)
     }
     
 }

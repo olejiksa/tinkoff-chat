@@ -10,7 +10,7 @@ import UIKit
 
 class ConversationViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     private var messages = [Message]()
     

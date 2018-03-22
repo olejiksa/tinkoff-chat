@@ -36,13 +36,13 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
         }
     }
     
-    var online: Bool = false {
+    var online = false {
         didSet {
             backgroundColor = online ? #colorLiteral(red: 0.9293007255, green: 0.9476440549, blue: 0.7933964133, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         }
     }
     
-    var hasUnreadMessages: Bool = false {
+    var hasUnreadMessages = false {
         didSet {
             updateFont()
         }
@@ -51,14 +51,6 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     private func updateFont() {
         if message == nil {

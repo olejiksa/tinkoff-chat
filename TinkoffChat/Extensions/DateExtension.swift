@@ -9,7 +9,6 @@
 import Foundation
 
 extension Date {
-    
     init?(from date: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
@@ -20,5 +19,4 @@ extension Date {
         
         self.init(timeInterval: 0, since: date)
     }
-    
 }

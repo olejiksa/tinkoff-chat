@@ -125,9 +125,10 @@ class ProfileViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    @IBAction private func didCloseBarButtonItemTap(_ sender: UIBarButtonItem) {
+    @IBAction private func didCloseBarButtonItemTap() {
         dismiss(animated: true)
     }
+    
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

@@ -13,6 +13,64 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Темы-->
+        <scene sceneID="aQo-mA-yzR">
+            <objects>
+                <viewController id="WPZ-rR-few" customClass="ThemesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uPg-MH-XAh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="WaU-Wz-qsf">
+                                <rect key="frame" x="61.5" y="229" width="197" height="174"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEx-ax-7kO">
+                                        <rect key="frame" x="0.0" y="0.0" width="197" height="38"/>
+                                        <color key="backgroundColor" red="1" green="0.95727831125259399" blue="0.63329410552978516" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="contentEdgeInsets" minX="75" minY="10" maxX="75" maxY="10"/>
+                                        <state key="normal" title="Тема 1"/>
+                                        <connections>
+                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="NyA-3J-tH8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ifa-Iw-b21">
+                                        <rect key="frame" x="0.0" y="68" width="197" height="38"/>
+                                        <color key="backgroundColor" red="1" green="0.95727831125259399" blue="0.63329410552978516" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Тема 2"/>
+                                        <connections>
+                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="iG1-cW-cK2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8b-fy-dI6">
+                                        <rect key="frame" x="0.0" y="136" width="197" height="38"/>
+                                        <color key="backgroundColor" red="1" green="0.95727831125259399" blue="0.63329410552978516" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Тема 3"/>
+                                        <connections>
+                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="hVy-4h-XnN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95679157972335815" green="0.83351123332977295" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="WaU-Wz-qsf" firstAttribute="centerY" secondItem="33t-xe-M56" secondAttribute="centerY" id="4Sj-cN-UUg"/>
+                            <constraint firstItem="WaU-Wz-qsf" firstAttribute="centerX" secondItem="33t-xe-M56" secondAttribute="centerX" id="vbL-up-7cR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="33t-xe-M56"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Темы" id="zcR-RE-eag">
+                        <barButtonItem key="rightBarButtonItem" title="Закрыть" id="2S6-mJ-k5h">
+                            <connections>
+                                <action selector="didCloseBarButtonItemTap" destination="WPZ-rR-few" id="lBQ-5O-yBb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FdO-ka-xVp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2168" y="-373"/>
+        </scene>
         <!--Tinkoff Chat-->
         <scene sceneID="0cN-Ke-ddc">
             <objects>
@@ -82,6 +140,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="WsA-xF-7Df">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Nyi-A5-3Ry"/>
+                        <barButtonItem key="leftBarButtonItem" title="Themes" id="uOC-Vh-I9t">
+                            <connections>
+                                <segue destination="qDt-Bb-VUX" kind="presentation" identifier="themesModalSegue" id="uR8-Qm-8S9"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Profile" id="fWK-Ci-efq">
                             <connections>
                                 <segue destination="img-ga-H8C" kind="presentation" id="ynq-C8-6cy"/>
@@ -122,13 +185,13 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" text="Alex Zverev" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Be-m4-2o7">
-                                <rect key="frame" x="16" y="384" width="288" height="33"/>
+                                <rect key="frame" x="16" y="384" width="288" height="32.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Love ❤️ iOS Development, like butterfiles and live in Tinkoff Bank" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ji-Pm-3rD">
-                                <rect key="frame" x="16" y="425" width="288" height="36"/>
+                                <rect key="frame" x="16" y="424.5" width="288" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -141,6 +204,11 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
                                 <state key="normal" image="CameraIcon"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="u1i-QJ-adf"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="choosePicture" destination="Ggn-em-6e2" eventType="touchUpInside" id="FCu-tH-Qq0"/>
                                 </connections>
@@ -166,10 +234,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U7c-D3-aqP"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="qlB-MR-Cfi">
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="taQ-o7-dAM">
+                    <navigationItem key="navigationItem" title="Профиль" id="qlB-MR-Cfi">
+                        <barButtonItem key="rightBarButtonItem" title="Закрыть" id="taQ-o7-dAM">
                             <connections>
-                                <action selector="didCloseBarButtonItemTap:" destination="Ggn-em-6e2" id="j6f-Bp-Vp8"/>
+                                <action selector="didCloseBarButtonItemTap" destination="Ggn-em-6e2" id="PL5-9W-BH0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -181,7 +249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kut-JQ-LX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2586" y="337"/>
+            <point key="canvasLocation" x="-2166" y="337"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8NZ-e8-Gyj">
@@ -229,20 +297,6 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="topInset">
-                                                                    <real key="value" value="10"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="leftInset">
-                                                                    <real key="value" value="16"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="bottomInset">
-                                                                    <real key="value" value="10"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="rightInset">
-                                                                    <real key="value" value="16"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -280,20 +334,6 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="topInset">
-                                                                    <real key="value" value="10"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="leftInset">
-                                                                    <real key="value" value="16"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="bottomInset">
-                                                                    <real key="value" value="10"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="rightInset">
-                                                                    <real key="value" value="16"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -335,7 +375,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KeL-t7-OMe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationItem title="Tinkoff Chat" id="A65-vL-2xl"/>
             </objects>
-            <point key="canvasLocation" x="-3861" y="1175"/>
+            <point key="canvasLocation" x="-3416" y="1181"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xRW-LK-oM9">
@@ -353,7 +393,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xv1-FG-jyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3416" y="337"/>
+            <point key="canvasLocation" x="-3135" y="337"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="h59-sU-rUS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qDt-Bb-VUX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CO7-NQ-oLY">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WPZ-rR-few" kind="relationship" relationship="rootViewController" id="vNn-VV-2c2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qo6-MW-xBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3135" y="-372"/>
         </scene>
     </scenes>
     <resources>
