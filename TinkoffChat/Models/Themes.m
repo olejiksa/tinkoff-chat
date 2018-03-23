@@ -24,13 +24,8 @@
 
 - (void)dealloc {
     [_theme1 release];
-    _theme1 = nil;
-    
     [_theme2 release];
-    _theme2 = nil;
-    
     [_theme3 release];
-    _theme3 = nil;
     
     [super dealloc];
 }
