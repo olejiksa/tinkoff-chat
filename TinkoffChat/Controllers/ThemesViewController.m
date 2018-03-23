@@ -32,9 +32,6 @@
 - (void)dealloc {
     [_model release];
     
-    _model = nil;
-    _delegate = nil;
-    
     [super dealloc];
 }
 
