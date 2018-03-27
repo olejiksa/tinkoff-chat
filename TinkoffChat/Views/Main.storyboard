@@ -16,7 +16,7 @@
         <!--Темы-->
         <scene sceneID="aQo-mA-yzR">
             <objects>
-                <viewController id="WPZ-rR-few" customClass="ThemesViewController" sceneMemberID="viewController">
+                <viewController id="WPZ-rR-few" customClass="SwiftThemesViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uPg-MH-XAh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,7 +30,7 @@
                                         <inset key="contentEdgeInsets" minX="75" minY="10" maxX="75" maxY="10"/>
                                         <state key="normal" title="Тема 1"/>
                                         <connections>
-                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="NyA-3J-tH8"/>
+                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="Zb6-OF-RgC"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ifa-Iw-b21">
@@ -38,7 +38,7 @@
                                         <color key="backgroundColor" red="1" green="0.95727831125259399" blue="0.63329410552978516" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Тема 2"/>
                                         <connections>
-                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="iG1-cW-cK2"/>
+                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="YWR-zO-vy9"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8b-fy-dI6">
@@ -46,7 +46,7 @@
                                         <color key="backgroundColor" red="1" green="0.95727831125259399" blue="0.63329410552978516" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Тема 3"/>
                                         <connections>
-                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="hVy-4h-XnN"/>
+                                            <action selector="didThemeButtonTap:" destination="WPZ-rR-few" eventType="touchUpInside" id="gkI-0s-Rnv"/>
                                         </connections>
                                     </button>
                                 </subviews>

@@ -24,7 +24,7 @@ class SwiftThemesViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @IBAction private func didThemeButtonTap(sender: UIButton) {
+    @IBAction private func didThemeButtonTap(_ sender: UIButton) {
         if sender.currentTitle == "Тема 1" {
             closure?(self, model?.theme1)
         } else if sender.currentTitle == "Тема 2" {
