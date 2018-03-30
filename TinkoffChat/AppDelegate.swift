@@ -14,8 +14,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        if let savedTheme = UserDefaults.standard.colorForKey(key: "themeColor") {
-            ThemesManager.sharedInstance.applyTheme(savedTheme, isSaving: false)
+        DispatchQueue.global(qos: .userInteractive).async {
+            let savedTheme = UserDefaults.standard.colorForKey(key: "themeColor")
+            
+            if let theme = savedTheme {
+                DispatchQueue.main.async {
+                    ThemesManager.sharedInstance.applyTheme(theme, isSaving: false)
+                }
+            }
         }
         
         return true

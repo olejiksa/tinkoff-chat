@@ -15,8 +15,14 @@ class SwiftThemesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let savedTheme = UserDefaults.standard.colorForKey(key: "themeColor") {
-            view.backgroundColor = savedTheme
+        DispatchQueue.global(qos: .userInteractive).async {
+            let savedTheme = UserDefaults.standard.colorForKey(key: "themeColor")
+            
+            if let theme = savedTheme {
+                DispatchQueue.main.async {
+                    self.view.backgroundColor = theme
+                }
+            }
         }
     }
     

@@ -40,7 +40,7 @@ class Profile {
     
     class func write(_ profile: Profile, filenames: (name: String, about: String, picture: String)) throws {
         let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
-
+        
         var url = temporaryDirectory.appendingPathComponent(filenames.picture)
         if let picture = profile.picture {
             try UIImageJPEGRepresentation(picture, 1.0)?.write(to: url, options: .atomic)

@@ -22,6 +22,16 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
+        NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"themeColor"];
+        if (colorData != nil) {
+            UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.view.backgroundColor = color;
+            });
+        }
+    });
+    
     NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"themeColor"];
     if (colorData != nil) {
         UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];

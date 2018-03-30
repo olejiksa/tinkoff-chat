@@ -79,9 +79,15 @@ class ProfileViewController: UIViewController {
         usernameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         aboutTextView.delegate = self
         
+        editButton.isUserInteractionEnabled = false
+        editButton.alpha = 0.5
+        
         dataManager = arc4random_uniform(2) == 0 ? GCDDataManager() : OperationDataManager()
+        
         dataManager?.loadProfile { profile, error in
             guard error == nil, let profile = profile else {
+                self.editButton.isUserInteractionEnabled = true
+                self.editButton.alpha = 1
                 self.progressRing.stopAnimating()
                 return
             }
@@ -100,6 +106,8 @@ class ProfileViewController: UIViewController {
                 self.userPictureImageView.image = picture
             }
             
+            self.editButton.isUserInteractionEnabled = true
+            self.editButton.alpha = 1
             self.progressRing.stopAnimating()
         }
     }
@@ -165,9 +173,6 @@ class ProfileViewController: UIViewController {
         progressRing.startAnimating()
         makeSaveButtons(active: false)
         
-        saveButtonBar.isHidden = true
-        editButton.isHidden = false
-        
         if usernameTextField.text != profile.name {
             profile.name = usernameTextField.text
         }
@@ -197,6 +202,9 @@ class ProfileViewController: UIViewController {
             }
             
             self.progressRing.stopAnimating()
+            
+            self.saveButtonBar.isHidden = true
+            self.editButton.isHidden = false
             
             self.usernameTextField.isUserInteractionEnabled = false
             self.choosePictureButton.isUserInteractionEnabled = false
