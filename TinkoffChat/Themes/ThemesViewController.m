@@ -63,15 +63,22 @@
     if (_delegate == nil)
         return;
     
-    if ([sender.currentTitle isEqualToString:@"Тема 1"])
-        [_delegate themesViewController:self
-                         didSelectTheme:self.model.theme1];
-    else if ([sender.currentTitle isEqualToString:@"Тема 2"])
-        [_delegate themesViewController:self
-                         didSelectTheme:self.model.theme2];
-    else if ([sender.currentTitle isEqualToString:@"Тема 3"])
-        [_delegate themesViewController:self
-                         didSelectTheme:self.model.theme3];
+    switch (sender.tag) {
+        case 1:
+            [_delegate themesViewController:self
+                             didSelectTheme:self.model.theme1];
+            break;
+        case 2:
+            [_delegate themesViewController:self
+                             didSelectTheme:self.model.theme2];
+            break;
+        case 3:
+            [_delegate themesViewController:self
+                             didSelectTheme:self.model.theme3];
+            break;
+        default:
+            break;
+    }
 }
 
 @end

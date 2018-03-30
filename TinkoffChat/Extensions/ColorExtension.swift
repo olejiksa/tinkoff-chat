@@ -7,7 +7,6 @@
 //
 
 extension UIColor {
-    
     func rgb() -> (red: Int, green: Int, blue: Int, alpha: Int)? {
         var fRed: CGFloat = 0
         var fGreen: CGFloat = 0
@@ -21,9 +20,9 @@ extension UIColor {
             let iAlpha = Int(fAlpha * 255.0)
             
             return (red: iRed, green: iGreen, blue: iBlue, alpha: iAlpha)
-        } else {
-            return nil
         }
+        
+        return nil
     }
     
     var isLight: Bool {
@@ -31,5 +30,4 @@ extension UIColor {
         getWhite(&white, alpha: nil)
         return white > 0.5
     }
-    
 }

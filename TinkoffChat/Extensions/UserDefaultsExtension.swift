@@ -6,10 +6,6 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
-//  Used this solution: https://www.bobthedeveloper.io/blog/store-uicolor-with-userdefaults-in-swift
-
-import Foundation
-
 extension UserDefaults {
     func colorForKey(key: String) -> UIColor? {
         var color: UIColor?
@@ -18,6 +14,7 @@ extension UserDefaults {
         }
         return color
     }
+    
     func setColor(color: UIColor?, forKey key: String) {
         var colorData: NSData?
         if let color = color {

@@ -1,5 +1,5 @@
 //
-//  ThemesViewController.swift
+//  SwiftThemesViewController.swift
 //  TinkoffChat
 //
 //  Created by Олег Самойлов on 21/03/2018.
@@ -25,12 +25,15 @@ class SwiftThemesViewController: UIViewController {
     }
     
     @IBAction private func didThemeButtonTap(_ sender: UIButton) {
-        if sender.currentTitle == "Тема 1" {
+        switch sender.tag {
+        case 1:
             closure?(self, model?.theme1)
-        } else if sender.currentTitle == "Тема 2" {
+        case 2:
             closure?(self, model?.theme2)
-        } else if sender.currentTitle == "Тема 3" {
+        case 3:
             closure?(self, model?.theme3)
+        default:
+            break
         }
     }
     

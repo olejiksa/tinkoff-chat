@@ -27,6 +27,12 @@
 		EB7027612061A0FC004BB040 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027602061A0FC004BB040 /* ColorExtension.swift */; };
 		EB7027642061BE0D004BB040 /* SwiftThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027632061BE0D004BB040 /* SwiftThemesViewController.swift */; };
 		EB912BF120470BDA00F62314 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB912BF020470BDA00F62314 /* Main.storyboard */; };
+		EBFDEE19206DAA08004008C1 /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE18206DAA08004008C1 /* GCDDataManager.swift */; };
+		EBFDEE1D206DAA5A004008C1 /* DataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE1C206DAA5A004008C1 /* DataManagerDelegate.swift */; };
+		EBFDEE1F206DAB7D004008C1 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE1E206DAB7D004008C1 /* Profile.swift */; };
+		EBFDEE27206DEE79004008C1 /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE26206DEE79004008C1 /* OperationDataManager.swift */; };
+		EBFDEE2B206DF5A0004008C1 /* LoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE2A206DF5A0004008C1 /* LoadOperation.swift */; };
+		EBFDEE2D206DF5AA004008C1 /* SaveOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE2C206DF5AA004008C1 /* SaveOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +62,12 @@
 		EB7027632061BE0D004BB040 /* SwiftThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftThemesViewController.swift; sourceTree = "<group>"; };
 		EB817FD12061CB5C007CEFF9 /* Themes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		EB912BF020470BDA00F62314 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		EBFDEE18206DAA08004008C1 /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
+		EBFDEE1C206DAA5A004008C1 /* DataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerDelegate.swift; sourceTree = "<group>"; };
+		EBFDEE1E206DAB7D004008C1 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		EBFDEE26206DEE79004008C1 /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
+		EBFDEE2A206DF5A0004008C1 /* LoadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadOperation.swift; sourceTree = "<group>"; };
+		EBFDEE2C206DF5AA004008C1 /* SaveOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,45 +81,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EB29C70D20533A740034D6D8 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				EB29C7052052C5320034D6D8 /* ConversationsListViewController.swift */,
-				EB29C7162054563A0034D6D8 /* ConversationViewController.swift */,
-				EB36979C203DD3620065EC99 /* ProfileViewController.swift */,
-				EB7027632061BE0D004BB040 /* SwiftThemesViewController.swift */,
-				EB6AF364205D147300D15B71 /* ThemesViewController.h */,
-				EB6AF365205D147300D15B71 /* ThemesViewController.m */,
-				EB1F146E2061131A00590B05 /* ThemesViewControllerDelegate.h */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		EB29C70E20533A8F0034D6D8 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				EB912BF020470BDA00F62314 /* Main.storyboard */,
-				EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */,
-				EB29C7072052DBED0034D6D8 /* ConversationCell.swift */,
-				EB29C71A205487980034D6D8 /* MessageCell.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		EB29C70F20533A980034D6D8 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				EB29C7092052DCFD0034D6D8 /* ConversationCellConfiguration.swift */,
-				EB29C70B2052E51E0034D6D8 /* Conversation.swift */,
-				EB29C7182054871F0034D6D8 /* MessageCellConfiguration.swift */,
-				EB29C71C20548F8F0034D6D8 /* Message.swift */,
-				EB55B0562063B4AF006A7178 /* ThemesManager.swift */,
-				EB817FD12061CB5C007CEFF9 /* Themes.h */,
-				EB1F146F206127A200590B05 /* Themes.m */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		EB36978E203DD3620065EC99 = {
 			isa = PBXGroup;
 			children = (
@@ -130,9 +103,12 @@
 				EB36979A203DD3620065EC99 /* AppDelegate.swift */,
 				EB6AF363205D147200D15B71 /* TinkoffChat-Bridging-Header.h */,
 				EB3697A1203DD3620065EC99 /* Assets.xcassets */,
-				EB29C70F20533A980034D6D8 /* Models */,
-				EB29C70E20533A8F0034D6D8 /* Views */,
-				EB29C70D20533A740034D6D8 /* Controllers */,
+				EBFDEE21206DEB1E004008C1 /* Conversation */,
+				EBFDEE23206DEB7A004008C1 /* Message */,
+				EBFDEE22206DEB6E004008C1 /* Profile */,
+				EBFDEE20206DEAF8004008C1 /* Themes */,
+				EBFDEE25206DEC31004008C1 /* Data Managers */,
+				EBFDEE24206DEBE8004008C1 /* Storyboards */,
 				EB7027622061A263004BB040 /* Extensions */,
 				EB3697A6203DD3620065EC99 /* Info.plist */,
 			);
@@ -147,6 +123,72 @@
 				EB55B0542063B209006A7178 /* UserDefaultsExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EBFDEE20206DEAF8004008C1 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				EB817FD12061CB5C007CEFF9 /* Themes.h */,
+				EB1F146F206127A200590B05 /* Themes.m */,
+				EB55B0562063B4AF006A7178 /* ThemesManager.swift */,
+				EB6AF364205D147300D15B71 /* ThemesViewController.h */,
+				EB6AF365205D147300D15B71 /* ThemesViewController.m */,
+				EB1F146E2061131A00590B05 /* ThemesViewControllerDelegate.h */,
+				EB7027632061BE0D004BB040 /* SwiftThemesViewController.swift */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
+		EBFDEE21206DEB1E004008C1 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				EB29C70B2052E51E0034D6D8 /* Conversation.swift */,
+				EB29C7072052DBED0034D6D8 /* ConversationCell.swift */,
+				EB29C7092052DCFD0034D6D8 /* ConversationCellConfiguration.swift */,
+				EB29C7162054563A0034D6D8 /* ConversationViewController.swift */,
+				EB29C7052052C5320034D6D8 /* ConversationsListViewController.swift */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		EBFDEE22206DEB6E004008C1 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EBFDEE1E206DAB7D004008C1 /* Profile.swift */,
+				EB36979C203DD3620065EC99 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		EBFDEE23206DEB7A004008C1 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				EB29C71C20548F8F0034D6D8 /* Message.swift */,
+				EB29C71A205487980034D6D8 /* MessageCell.swift */,
+				EB29C7182054871F0034D6D8 /* MessageCellConfiguration.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		EBFDEE24206DEBE8004008C1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				EB912BF020470BDA00F62314 /* Main.storyboard */,
+				EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		EBFDEE25206DEC31004008C1 /* Data Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EBFDEE1C206DAA5A004008C1 /* DataManagerDelegate.swift */,
+				EBFDEE18206DAA08004008C1 /* GCDDataManager.swift */,
+				EBFDEE26206DEE79004008C1 /* OperationDataManager.swift */,
+				EBFDEE2A206DF5A0004008C1 /* LoadOperation.swift */,
+				EBFDEE2C206DF5AA004008C1 /* SaveOperation.swift */,
+			);
+			path = "Data Managers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,7 +218,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Oleg Samoylov";
 				TargetAttributes = {
 					EB369796203DD3620065EC99 = {
@@ -229,6 +271,7 @@
 				EB7027642061BE0D004BB040 /* SwiftThemesViewController.swift in Sources */,
 				EB29C7142054360B0034D6D8 /* DateExtension.swift in Sources */,
 				EB7027612061A0FC004BB040 /* ColorExtension.swift in Sources */,
+				EBFDEE19206DAA08004008C1 /* GCDDataManager.swift in Sources */,
 				EB29C7172054563A0034D6D8 /* ConversationViewController.swift in Sources */,
 				EB36979D203DD3620065EC99 /* ProfileViewController.swift in Sources */,
 				EB1F1470206127A200590B05 /* Themes.m in Sources */,
@@ -236,9 +279,14 @@
 				EB29C71D20548F8F0034D6D8 /* Message.swift in Sources */,
 				EB36979B203DD3620065EC99 /* AppDelegate.swift in Sources */,
 				EB29C70A2052DCFD0034D6D8 /* ConversationCellConfiguration.swift in Sources */,
+				EBFDEE1D206DAA5A004008C1 /* DataManagerDelegate.swift in Sources */,
 				EB55B0572063B4AF006A7178 /* ThemesManager.swift in Sources */,
+				EBFDEE27206DEE79004008C1 /* OperationDataManager.swift in Sources */,
 				EB29C70C2052E51E0034D6D8 /* Conversation.swift in Sources */,
 				EB29C7062052C5320034D6D8 /* ConversationsListViewController.swift in Sources */,
+				EBFDEE2D206DF5AA004008C1 /* SaveOperation.swift in Sources */,
+				EBFDEE1F206DAB7D004008C1 /* Profile.swift in Sources */,
+				EBFDEE2B206DF5A0004008C1 /* LoadOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +318,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -277,6 +326,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -328,6 +378,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -335,6 +386,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -370,6 +422,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B2FMGUSH44;
 				INFOPLIST_FILE = TinkoffChat/Info.plist;
@@ -388,6 +441,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B2FMGUSH44;
 				INFOPLIST_FILE = TinkoffChat/Info.plist;

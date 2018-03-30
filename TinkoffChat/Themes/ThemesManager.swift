@@ -11,10 +11,10 @@ import Foundation
 final class ThemesManager {
     
     static let sharedInstance = ThemesManager()
-    
+
     private init() {}
     
-    func applyTheme(_ themeToApply: UIColor) {
+    func applyTheme(_ themeToApply: UIColor, isSaving: Bool = true) {
         UINavigationBar.appearance().backgroundColor = themeToApply
         UINavigationBar.appearance().barTintColor = themeToApply
         
@@ -26,7 +26,9 @@ final class ThemesManager {
             UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.lightText]
         }
         
-        UserDefaults.standard.setColor(color: themeToApply, forKey: "themeColor")
+        if isSaving {
+            UserDefaults.standard.setColor(color: themeToApply, forKey: "themeColor")
+        }
         
         // Applies UIAppearance immediately on the screen
         let windows = UIApplication.shared.windows as [UIWindow]
