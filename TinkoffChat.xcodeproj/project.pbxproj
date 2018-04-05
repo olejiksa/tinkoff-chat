@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EB1F1470206127A200590B05 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1F146F206127A200590B05 /* Themes.m */; };
+		EB2808D52074C7260008E7BC /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2808D42074C7260008E7BC /* CommunicationManager.swift */; };
 		EB29C7062052C5320034D6D8 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29C7052052C5320034D6D8 /* ConversationsListViewController.swift */; };
 		EB29C7082052DBED0034D6D8 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29C7072052DBED0034D6D8 /* ConversationCell.swift */; };
 		EB29C70A2052DCFD0034D6D8 /* ConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29C7092052DCFD0034D6D8 /* ConversationCellConfiguration.swift */; };
@@ -27,6 +28,10 @@
 		EB7027612061A0FC004BB040 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027602061A0FC004BB040 /* ColorExtension.swift */; };
 		EB7027642061BE0D004BB040 /* SwiftThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027632061BE0D004BB040 /* SwiftThemesViewController.swift */; };
 		EB912BF120470BDA00F62314 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB912BF020470BDA00F62314 /* Main.storyboard */; };
+		EBCD6E71207622A50029F0C0 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD6E70207622A50029F0C0 /* NotificationExtension.swift */; };
+		EBD63E8A2073BF19003F33C3 /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD63E892073BF19003F33C3 /* Communicator.swift */; };
+		EBD63E8C2073C059003F33C3 /* CommunicatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD63E8B2073C059003F33C3 /* CommunicatorDelegate.swift */; };
+		EBD63E8F2073C187003F33C3 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD63E8E2073C187003F33C3 /* MultipeerCommunicator.swift */; };
 		EBFDEE19206DAA08004008C1 /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE18206DAA08004008C1 /* GCDDataManager.swift */; };
 		EBFDEE1D206DAA5A004008C1 /* DataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE1C206DAA5A004008C1 /* DataManagerDelegate.swift */; };
 		EBFDEE1F206DAB7D004008C1 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE1E206DAB7D004008C1 /* Profile.swift */; };
@@ -38,6 +43,7 @@
 /* Begin PBXFileReference section */
 		EB1F146E2061131A00590B05 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		EB1F146F206127A200590B05 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
+		EB2808D42074C7260008E7BC /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
 		EB29C7052052C5320034D6D8 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		EB29C7072052DBED0034D6D8 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		EB29C7092052DCFD0034D6D8 /* ConversationCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfiguration.swift; sourceTree = "<group>"; };
@@ -62,6 +68,10 @@
 		EB7027632061BE0D004BB040 /* SwiftThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftThemesViewController.swift; sourceTree = "<group>"; };
 		EB817FD12061CB5C007CEFF9 /* Themes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		EB912BF020470BDA00F62314 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		EBCD6E70207622A50029F0C0 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
+		EBD63E892073BF19003F33C3 /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
+		EBD63E8B2073C059003F33C3 /* CommunicatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorDelegate.swift; sourceTree = "<group>"; };
+		EBD63E8E2073C187003F33C3 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		EBFDEE18206DAA08004008C1 /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		EBFDEE1C206DAA5A004008C1 /* DataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerDelegate.swift; sourceTree = "<group>"; };
 		EBFDEE1E206DAB7D004008C1 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -103,6 +113,7 @@
 				EB36979A203DD3620065EC99 /* AppDelegate.swift */,
 				EB6AF363205D147200D15B71 /* TinkoffChat-Bridging-Header.h */,
 				EB3697A1203DD3620065EC99 /* Assets.xcassets */,
+				EBD63E8D2073C063003F33C3 /* Communicator */,
 				EBFDEE21206DEB1E004008C1 /* Conversation */,
 				EBFDEE23206DEB7A004008C1 /* Message */,
 				EBFDEE22206DEB6E004008C1 /* Profile */,
@@ -120,9 +131,21 @@
 			children = (
 				EB7027602061A0FC004BB040 /* ColorExtension.swift */,
 				EB29C7132054360B0034D6D8 /* DateExtension.swift */,
+				EBCD6E70207622A50029F0C0 /* NotificationExtension.swift */,
 				EB55B0542063B209006A7178 /* UserDefaultsExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EBD63E8D2073C063003F33C3 /* Communicator */ = {
+			isa = PBXGroup;
+			children = (
+				EBD63E892073BF19003F33C3 /* Communicator.swift */,
+				EBD63E8E2073C187003F33C3 /* MultipeerCommunicator.swift */,
+				EBD63E8B2073C059003F33C3 /* CommunicatorDelegate.swift */,
+				EB2808D42074C7260008E7BC /* CommunicationManager.swift */,
+			);
+			path = Communicator;
 			sourceTree = "<group>";
 		};
 		EBFDEE20206DEAF8004008C1 /* Themes */ = {
@@ -265,12 +288,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB29C7192054871F0034D6D8 /* MessageCellConfiguration.swift in Sources */,
+				EB2808D52074C7260008E7BC /* CommunicationManager.swift in Sources */,
 				EB29C71B205487980034D6D8 /* MessageCell.swift in Sources */,
 				EB6AF366205D147300D15B71 /* ThemesViewController.m in Sources */,
 				EB29C7082052DBED0034D6D8 /* ConversationCell.swift in Sources */,
 				EB7027642061BE0D004BB040 /* SwiftThemesViewController.swift in Sources */,
 				EB29C7142054360B0034D6D8 /* DateExtension.swift in Sources */,
+				EBD63E8A2073BF19003F33C3 /* Communicator.swift in Sources */,
 				EB7027612061A0FC004BB040 /* ColorExtension.swift in Sources */,
+				EBD63E8F2073C187003F33C3 /* MultipeerCommunicator.swift in Sources */,
 				EBFDEE19206DAA08004008C1 /* GCDDataManager.swift in Sources */,
 				EB29C7172054563A0034D6D8 /* ConversationViewController.swift in Sources */,
 				EB36979D203DD3620065EC99 /* ProfileViewController.swift in Sources */,
@@ -285,7 +311,9 @@
 				EB29C70C2052E51E0034D6D8 /* Conversation.swift in Sources */,
 				EB29C7062052C5320034D6D8 /* ConversationsListViewController.swift in Sources */,
 				EBFDEE2D206DF5AA004008C1 /* SaveOperation.swift in Sources */,
+				EBD63E8C2073C059003F33C3 /* CommunicatorDelegate.swift in Sources */,
 				EBFDEE1F206DAB7D004008C1 /* Profile.swift in Sources */,
+				EBCD6E71207622A50029F0C0 /* NotificationExtension.swift in Sources */,
 				EBFDEE2B206DF5A0004008C1 /* LoadOperation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

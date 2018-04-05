@@ -9,18 +9,32 @@
 import UIKit
 
 class ConversationsListViewController: UIViewController {
-    
     @IBOutlet private weak var tableView: UITableView!
     
-    private var conversations = [[Conversation]]()
+    private var communicator: Communicator = MultipeerCommunicator()
+    private var communicationManager = CommunicationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addAllConversations()
-        
+        communicator.delegate = communicationManager
         tableView.dataSource = self
         tableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.ConversationsListReloadData, object: nil)
+        if tableView.dataSource != nil {
+            tableView.reloadData()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.ConversationsListReloadData, object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -29,7 +43,8 @@ class ConversationsListViewController: UIViewController {
         if segue.identifier == "showSegue" {
             if let destination = segue.destination as? ConversationViewController {
                 if let indexPath = tableView.indexPathForSelectedRow {
-                    destination.navigationItem.title = conversations[indexPath.section][indexPath.row].name ?? "Name"
+                    destination.communicator = communicator
+                    destination.conversation = communicationManager.conversations[indexPath.section][indexPath.row]
                 }
             }
         } else if segue.identifier == "themesModalSegue" {
@@ -37,7 +52,8 @@ class ConversationsListViewController: UIViewController {
                 if let objcDestination = navigationDestination.viewControllers.first as? ThemesViewController {
                     objcDestination.delegate = self
                 } else if let swiftDestination = navigationDestination.viewControllers.first as? SwiftThemesViewController {
-                    swiftDestination.closure = { [unowned self] (controller: SwiftThemesViewController, selectedTheme: UIColor?) in
+                    swiftDestination.closure = {
+                        [unowned self] (controller: SwiftThemesViewController, selectedTheme: UIColor?) in
                         guard let theme = selectedTheme else {
                             return
                         }
@@ -52,81 +68,25 @@ class ConversationsListViewController: UIViewController {
         }
     }
     
-    private func addAllConversations() {
-        // online
-        conversations += [[Conversation(name: "Kirill",
-                                        message: "Hi, how're u?",
-                                        date: Date.init(timeIntervalSinceNow: 0),
-                                        online: true,
-                                        hasUnreadMessages: true),
-                           Conversation(name: "Serg",
-                                        message: "Hey!",
-                                        date: Date.init(timeIntervalSinceNow: -2*60*60*24),
-                                        online: true,
-                                        hasUnreadMessages: false),
-                           Conversation(name: "Kate",
-                                        message: "Запилила лекцию... на 80%",
-                                        date: Date.init(timeIntervalSinceNow: -3*60*60*24),
-                                        online: true,
-                                        hasUnreadMessages: false),
-                           Conversation(name: "Alex",
-                                        message: "Готово на 30%",
-                                        date: Date(from: "10 Mar 2018 15:28"),
-                                        online: true,
-                                        hasUnreadMessages: true),
-                           Conversation(name: "Philip",
-                                        message: "Hahaha",
-                                        date: Date(from: "8 Mar 2018 19:00"),
-                                        online: true,
-                                        hasUnreadMessages: true),
-                           Conversation(name: "Santa",
-                                        message: "Happy New Year!",
-                                        date: Date(from: "31 Dec 2018 23:59"),
-                                        online: true,
-                                        hasUnreadMessages: false),
-                           Conversation(name: "I have the longest weird name in this world",
-                                        message: "Happy New Year!",
-                                        date: Date(from: "13 Jun 2018 23:59"),
-                                        online: true,
-                                        hasUnreadMessages: false),
-                           Conversation(name: nil,
-                                        message: "NoName&NoClan and NoName&NoClan a bit more",
-                                        date: Date(from: "11 Jun 2018 23:59"),
-                                        online: true,
-                                        hasUnreadMessages: true),
-                           Conversation(name: "Big Brother",
-                                        message: nil,
-                                        date: nil,
-                                        online: true,
-                                        hasUnreadMessages: false)]]
-        //history
-        conversations.append([Conversation]())
-        for i in 0..<conversations[0].count-1 {
-            conversations[1].append(conversations[0][i])
-            conversations[1][i].online = false
-        }
-        conversations[1].append(Conversation(name: "Selfish nut",
-                                             message: "Talk me!!!111",
-                                             date: Date.init(timeIntervalSinceNow: -60*60*24),
-                                             online: false,
-                                             hasUnreadMessages: true))
-    }
-    
     private func logThemeChanging(selectedTheme: UIColor) {
         guard let rgb = selectedTheme.rgb() else { return }
         print(rgb)
     }
     
+    @objc private func reloadData() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }
 
 extension ConversationsListViewController: UITableViewDataSource, UITableViewDelegate {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return conversations.count
+        return communicationManager.conversations.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conversations[section].count
+        return communicationManager.conversations[section].count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -143,10 +103,10 @@ extension ConversationsListViewController: UITableViewDataSource, UITableViewDel
             cell = ConversationCell(style: .default, reuseIdentifier: identifier)
         }
         
-        let conversation = conversations[indexPath.section][indexPath.row]
+        let conversation = communicationManager.conversations[indexPath.section][indexPath.row]
         cell.name = conversation.name
         cell.date = conversation.date
-        cell.message = conversation.message
+        cell.lastMessageText = conversation.lastMessageText
         cell.online = conversation.online
         cell.hasUnreadMessages = conversation.hasUnreadMessages
         
@@ -161,11 +121,9 @@ extension ConversationsListViewController: UITableViewDataSource, UITableViewDel
         performSegue(withIdentifier: "showSegue", sender: indexPath);
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }
 
 extension ConversationsListViewController: ThemesViewControllerDelegate {
-    
     func themesViewController(_ controller: ThemesViewController?, didSelectTheme selectedTheme: UIColor?) {
         guard let theme = selectedTheme else {
             return
@@ -176,5 +134,4 @@ extension ConversationsListViewController: ThemesViewControllerDelegate {
         
         ThemesManager.sharedInstance.applyTheme(theme)
     }
-    
 }

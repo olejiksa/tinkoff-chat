@@ -9,7 +9,6 @@
 import UIKit
 
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
-    
     private let namePlaceholder = "Name", datePlaceholer = "Date"
     
     var name: String? {
@@ -23,9 +22,9 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
         }
     }
     
-    var message: String? {
+    var lastMessageText: String? {
         didSet {
-            messageLabel.text = message == nil ? "No messages yet" : message
+            messageLabel.text = lastMessageText == nil ? "No messages yet" : lastMessageText
             updateFont()
         }
     }
@@ -38,7 +37,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     
     var online = false {
         didSet {
-            backgroundColor = online ? #colorLiteral(red: 0.9293007255, green: 0.9476440549, blue: 0.7933964133, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            backgroundColor = online ? #colorLiteral(red: 1, green: 0.9960784314, blue: 0.8078431373, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         }
     }
     
@@ -53,7 +52,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     @IBOutlet private weak var dateLabel: UILabel!
     
     private func updateFont() {
-        if message == nil {
+        if lastMessageText == nil {
             messageLabel.font = .italicSystemFont(ofSize: 14)
         } else if hasUnreadMessages {
             messageLabel.font = .boldSystemFont(ofSize: 14)
@@ -73,5 +72,4 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
         
         dateLabel.text = dateFormatter.string(from: date)
     }
-
 }
