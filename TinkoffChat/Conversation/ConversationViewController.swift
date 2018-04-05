@@ -76,6 +76,7 @@ class ConversationViewController: UIViewController {
                 self?.tableView.reloadData()
                 
                 NotificationCenter.default.post(name: Notification.Name.ConversationsListSortData, object: nil)
+                self?.sendButton.isEnabled = false
             } else {
                 let alert = UIAlertController(title: "Ошибка", message: "Не удалось отправить сообщение.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
