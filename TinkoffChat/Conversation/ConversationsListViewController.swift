@@ -26,9 +26,7 @@ class ConversationsListViewController: UIViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.ConversationsListReloadData, object: nil)
-        if tableView.dataSource != nil {
-            tableView.reloadData()
-        }
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
