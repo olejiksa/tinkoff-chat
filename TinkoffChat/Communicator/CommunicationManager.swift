@@ -21,10 +21,6 @@ class CommunicationManager: CommunicatorDelegate {
     }
     
     func didFoundUser(userID: String, userName: String?) {
-        guard conversations[0].index(where: { (item) -> Bool in item.id == userID }) == nil else {
-            return
-        }
-        
         conversations[0].append(Conversation(id: userID,
                                              name: userName,
                                              messages: [Message](),
