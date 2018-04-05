@@ -9,22 +9,15 @@
 import UIKit
 
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
-    private let namePlaceholder = "Name", datePlaceholer = "Date"
-    
     var name: String? {
         didSet {
-            guard let name = name else {
-                nameLabel.text = namePlaceholder
-                return
-            }
-            
-            nameLabel.text = name
+            nameLabel.text = name ?? "Name"
         }
     }
     
     var lastMessageText: String? {
         didSet {
-            messageLabel.text = lastMessageText == nil ? "No messages yet" : lastMessageText
+            messageLabel.text = lastMessageText ?? "No messages yet"
             updateFont()
         }
     }
@@ -63,7 +56,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     
     private func formatDate() {
         guard let date = date else {
-            dateLabel.text = datePlaceholer
+            dateLabel.text = "Date"
             return
         }
         
