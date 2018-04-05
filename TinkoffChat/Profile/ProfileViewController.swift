@@ -17,6 +17,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet var progressRing: UIActivityIndicatorView!
     @IBOutlet var editButton: UIButton!
     
+    private let gcdDataManager = GCDDataManager()
+    private let operationDataManager = OperationDataManager()
+    
     @IBOutlet var userPictureImageView: UIImageView! {
         didSet {
             userPictureImageView.layer.masksToBounds = true
@@ -84,31 +87,31 @@ class ProfileViewController: UIViewController {
         
         dataManager = arc4random_uniform(2) == 0 ? GCDDataManager() : OperationDataManager()
         
-        dataManager?.loadProfile { profile, error in
+        dataManager?.loadProfile { [weak self] profile, error in
             guard error == nil, let profile = profile else {
-                self.editButton.isUserInteractionEnabled = true
-                self.editButton.alpha = 1
-                self.progressRing.stopAnimating()
+                self?.editButton.isUserInteractionEnabled = true
+                self?.editButton.alpha = 1
+                self?.progressRing.stopAnimating()
                 return
             }
             
-            self.profile = profile
+            self?.profile = profile
             
             if let name = profile.name {
-                self.usernameTextField.text = name
+                self?.usernameTextField.text = name
             }
             
             if let about = profile.about {
-                self.aboutTextView.text = about
+                self?.aboutTextView.text = about
             }
             
             if let picture = profile.picture {
-                self.userPictureImageView.image = picture
+                self?.userPictureImageView.image = picture
             }
             
-            self.editButton.isUserInteractionEnabled = true
-            self.editButton.alpha = 1
-            self.progressRing.stopAnimating()
+            self?.editButton.isUserInteractionEnabled = true
+            self?.editButton.alpha = 1
+            self?.progressRing.stopAnimating()
         }
     }
     
@@ -164,9 +167,9 @@ class ProfileViewController: UIViewController {
     @IBAction func didSaveButtonTap(_ sender: UIButton) {
         switch sender.tag {
         case 1:
-            dataManager = GCDDataManager()
+            dataManager = gcdDataManager
         case 2:
-            dataManager = OperationDataManager()
+            dataManager = operationDataManager
         default:
             return
         }
@@ -187,35 +190,35 @@ class ProfileViewController: UIViewController {
             profile.picture = userPictureImageView.image
         }
         
-        dataManager?.saveProfile(profile) { error in
+        dataManager?.saveProfile(profile) { [weak self] error in
             if error == nil {
                 let alert = UIAlertController(title: nil, message: "Данные сохранены", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 
-                self.present(alert, animated: true)
+                self?.present(alert, animated: true)
             } else {
                 let alert = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 alert.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { _ in
-                    self.didSaveButtonTap(sender)
+                    self?.didSaveButtonTap(sender)
                 }))
                 
-                self.present(alert, animated: true)
+                self?.present(alert, animated: true)
             }
             
-            self.progressRing.stopAnimating()
+            self?.progressRing.stopAnimating()
             
-            self.saveButtonBar.isHidden = true
-            self.editButton.isHidden = false
+            self?.saveButtonBar.isHidden = true
+            self?.editButton.isHidden = false
             
-            self.usernameTextField.isUserInteractionEnabled = false
-            self.choosePictureButton.isUserInteractionEnabled = false
-            self.choosePictureButton.alpha = 0.5
+            self?.usernameTextField.isUserInteractionEnabled = false
+            self?.choosePictureButton.isUserInteractionEnabled = false
+            self?.choosePictureButton.alpha = 0.5
             
-            self.aboutTextView.isEditable = false
+            self?.aboutTextView.isEditable = false
             
-            self.usernameTextField.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            self.aboutTextView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            self?.usernameTextField.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            self?.aboutTextView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
     

@@ -24,7 +24,7 @@ class GCDDataManager: DataManager {
     }
     
     func saveProfile(_ profile: Profile, completion: @escaping (Error?) -> ()) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue(label: "com.olejiksa.customSerial", qos: .userInitiated).async {
             do {
                 try Profile.write(profile, filenames: (name: "name.txt", about: "about.txt", picture: "picture.jpg"))
 

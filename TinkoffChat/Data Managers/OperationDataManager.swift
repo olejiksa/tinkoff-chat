@@ -28,6 +28,8 @@ class OperationDataManager: DataManager {
             }
         }
         
-        OperationQueue().addOperation(save)
+        let userOperationQueue = OperationQueue()
+        userOperationQueue.maxConcurrentOperationCount = 1
+        userOperationQueue.addOperation(save)
     }
 }

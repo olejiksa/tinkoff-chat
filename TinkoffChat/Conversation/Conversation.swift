@@ -26,6 +26,7 @@ class Conversation: ConversationCellConfiguration {
         self.id = id
         self.name = name
         self.messages = messages
+        self.lastMessageText = lastMessageText
         self.date = date
         self.online = online
         self.hasUnreadMessages = hasUnreadMessages
