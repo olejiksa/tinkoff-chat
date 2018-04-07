@@ -12,24 +12,21 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet var gcdButton: UIButton!
-    @IBOutlet var operationButton: UIButton!
-    @IBOutlet var progressRing: UIActivityIndicatorView!
-    @IBOutlet var editButton: UIButton!
-    
-    private let gcdDataManager = GCDDataManager()
-    private let operationDataManager = OperationDataManager()
+    @IBOutlet private weak var gcdButton: UIButton!
+    @IBOutlet private weak var operationButton: UIButton!
+    @IBOutlet private weak var progressRing: UIActivityIndicatorView!
+    @IBOutlet private weak var editButton: UIButton!
     
     @IBOutlet var userPictureImageView: UIImageView! {
         didSet {
             userPictureImageView.layer.masksToBounds = true
-            userPictureImageView.layer.cornerRadius = choosePictureButton.frame.width / 2
+            userPictureImageView.layer.cornerRadius = cameraButton.frame.width / 2
         }
     }
     
-    @IBOutlet var choosePictureButton: UIButton! {
+    @IBOutlet var cameraButton: UIButton! {
         didSet {
-            choosePictureButton.layer.cornerRadius = choosePictureButton.frame.width / 2
+            cameraButton.layer.cornerRadius = cameraButton.frame.width / 2
         }
     }
     
@@ -61,7 +58,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    var dataManager: DataManager?
+    var dataManager: DataManager = StorageManager()
     var profile = Profile()
     
     var changesToSave: Bool {
@@ -85,9 +82,7 @@ class ProfileViewController: UIViewController {
         editButton.isUserInteractionEnabled = false
         editButton.alpha = 0.5
         
-        dataManager = arc4random_uniform(2) == 0 ? GCDDataManager() : OperationDataManager()
-        
-        dataManager?.loadProfile { [weak self] profile, error in
+        dataManager.loadProfile { [weak self] profile, error in
             guard error == nil, let profile = profile else {
                 self?.editButton.isUserInteractionEnabled = true
                 self?.editButton.alpha = 1
@@ -154,8 +149,8 @@ class ProfileViewController: UIViewController {
         saveButtonBar.isHidden = false
         editButton.isHidden = true
         
-        choosePictureButton.isUserInteractionEnabled = true
-        choosePictureButton.alpha = 1
+        cameraButton.isUserInteractionEnabled = true
+        cameraButton.alpha = 1
         usernameTextField.isUserInteractionEnabled = true
         
         usernameTextField.layer.borderColor = #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
@@ -165,14 +160,14 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func didSaveButtonTap(_ sender: UIButton) {
-        switch sender.tag {
+        /* switch sender.tag {
         case 1:
             dataManager = gcdDataManager
         case 2:
             dataManager = operationDataManager
         default:
             return
-        }
+        } */
         
         view.endEditing(true)
         progressRing.startAnimating()
@@ -190,7 +185,7 @@ class ProfileViewController: UIViewController {
             profile.picture = userPictureImageView.image
         }
         
-        dataManager?.saveProfile(profile) { [weak self] error in
+        dataManager.saveProfile(profile) { [weak self] error in
             if error == nil {
                 let alert = UIAlertController(title: nil, message: "Данные сохранены", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
@@ -212,8 +207,8 @@ class ProfileViewController: UIViewController {
             self?.editButton.isHidden = false
             
             self?.usernameTextField.isUserInteractionEnabled = false
-            self?.choosePictureButton.isUserInteractionEnabled = false
-            self?.choosePictureButton.alpha = 0.5
+            self?.cameraButton.isUserInteractionEnabled = false
+            self?.cameraButton.alpha = 0.5
             
             self?.aboutTextView.isEditable = false
             

@@ -7,6 +7,7 @@
 //
 
 class Profile {
+    
     var name: String?
     var about: String?
     var picture: UIImage?
@@ -18,6 +19,8 @@ class Profile {
         self.about = about;
         self.picture = picture;
     }
+        
+    // MARK: - Files
     
     class func read(filenames: (name: String, about: String, picture: String)) throws -> Profile? {
         let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -52,4 +55,5 @@ class Profile {
         url = temporaryDirectory.appendingPathComponent(filenames.about)
         try profile.about?.write(to: url, atomically: true, encoding: .utf8)
     }
+    
 }

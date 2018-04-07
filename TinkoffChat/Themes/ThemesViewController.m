@@ -14,8 +14,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _model = [[Themes alloc]initWithTheme1:UIColor.lightGrayColor
-                                    theme2:UIColor.darkGrayColor
+    _model = [[Themes alloc]initWithTheme1:[UIColor colorWithRed:(121.0/255.0) green:(214.0/255.0) blue:(249.0/255.0) alpha:1.0]
+                                    theme2:[UIColor colorWithRed:(184.0/255.0) green:(226.0/255.0) blue:(151.0/255.0) alpha:1.0]
                                     theme3:[UIColor colorWithRed:1.0 green:(244.0/255.0) blue:(100.0/255.0) alpha:1.0]];
 }
 

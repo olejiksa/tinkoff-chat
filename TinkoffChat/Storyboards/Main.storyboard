@@ -249,9 +249,8 @@
                                     <constraint firstAttribute="trailing" secondItem="mbA-Xx-vce" secondAttribute="trailing" id="fNV-Lk-UuA"/>
                                 </constraints>
                             </stackView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ptr-jj-BsB">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ptr-jj-BsB">
                                 <rect key="frame" x="142" y="298" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -263,6 +262,7 @@
                             <constraint firstItem="RDq-h3-IPy" firstAttribute="top" secondItem="rxh-JC-svH" secondAttribute="bottom" constant="16" id="HRh-LH-qTb"/>
                             <constraint firstItem="xvl-Q3-8x0" firstAttribute="top" secondItem="6mt-Jp-Y7w" secondAttribute="bottom" constant="16" id="JYQ-ru-ggY"/>
                             <constraint firstItem="6mt-Jp-Y7w" firstAttribute="top" secondItem="RDq-h3-IPy" secondAttribute="bottom" constant="8" id="ROC-8a-HIa"/>
+                            <constraint firstItem="Ptr-jj-BsB" firstAttribute="centerY" secondItem="U7c-D3-aqP" secondAttribute="centerY" id="Vcd-sj-UkC"/>
                             <constraint firstItem="U7c-D3-aqP" firstAttribute="trailing" secondItem="rxh-JC-svH" secondAttribute="trailing" constant="16" id="nRh-AA-uwW"/>
                             <constraint firstItem="RDq-h3-IPy" firstAttribute="leading" secondItem="U7c-D3-aqP" secondAttribute="leading" constant="16" id="pPW-6K-Ong"/>
                             <constraint firstItem="rxh-JC-svH" firstAttribute="trailing" secondItem="HWM-5Z-Euc" secondAttribute="trailing" id="r5h-sJ-gOv"/>
@@ -271,6 +271,7 @@
                             <constraint firstItem="U7c-D3-aqP" firstAttribute="bottom" secondItem="xvl-Q3-8x0" secondAttribute="bottom" constant="16" id="xPJ-Fg-NX2"/>
                             <constraint firstItem="xvl-Q3-8x0" firstAttribute="leading" secondItem="U7c-D3-aqP" secondAttribute="leading" constant="16" id="xW1-rU-Sno"/>
                             <constraint firstItem="rxh-JC-svH" firstAttribute="top" secondItem="U7c-D3-aqP" secondAttribute="top" constant="16" id="yZA-4t-bIi"/>
+                            <constraint firstItem="Ptr-jj-BsB" firstAttribute="centerX" secondItem="U7c-D3-aqP" secondAttribute="centerX" id="ztt-Fh-52c"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U7c-D3-aqP"/>
                     </view>
@@ -283,7 +284,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="aboutTextView" destination="6mt-Jp-Y7w" id="U9W-u6-7xN"/>
-                        <outlet property="choosePictureButton" destination="HWM-5Z-Euc" id="74K-sz-he4"/>
+                        <outlet property="cameraButton" destination="HWM-5Z-Euc" id="74K-sz-he4"/>
                         <outlet property="editButton" destination="mbA-Xx-vce" id="dFm-I2-QpF"/>
                         <outlet property="gcdButton" destination="1yc-9o-DVS" id="9Xr-qr-ggP"/>
                         <outlet property="operationButton" destination="N9q-r9-1CC" id="fNt-po-9sC"/>
