@@ -12,8 +12,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet private weak var gcdButton: UIButton!
-    @IBOutlet private weak var operationButton: UIButton!
+    @IBOutlet private weak var saveButton: UIButton!
     @IBOutlet private weak var progressRing: UIActivityIndicatorView!
     @IBOutlet private weak var editButton: UIButton!
     
@@ -52,12 +51,6 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    @IBOutlet var saveButtonBar: UIStackView! {
-        didSet {
-            saveButtonBar.isHidden = true
-        }
-    }
-    
     var dataManager: DataManager = StorageManager()
     var profile = Profile()
     
@@ -71,7 +64,14 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
-        applyCustomButtonStyle(for: editButton, gcdButton, operationButton)
+        
+        saveButton.layer.borderWidth = 2
+        saveButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        saveButton.layer.cornerRadius = 15
+        
+        editButton.layer.borderWidth = 2
+        editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        editButton.layer.cornerRadius = 15
         
         progressRing.startAnimating()
         
@@ -146,11 +146,10 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func didEditButtonTap() {
-        saveButtonBar.isHidden = false
+        saveButton.isHidden = false
         editButton.isHidden = true
         
-        cameraButton.isUserInteractionEnabled = true
-        cameraButton.alpha = 1
+        cameraButton.isHidden = false
         usernameTextField.isUserInteractionEnabled = true
         
         usernameTextField.layer.borderColor = #colorLiteral(red: 0.7294117647, green: 0.7294117647, blue: 0.7294117647, alpha: 1)
@@ -160,15 +159,6 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func didSaveButtonTap(_ sender: UIButton) {
-        /* switch sender.tag {
-        case 1:
-            dataManager = gcdDataManager
-        case 2:
-            dataManager = operationDataManager
-        default:
-            return
-        } */
-        
         view.endEditing(true)
         progressRing.startAnimating()
         makeSaveButtons(active: false)
@@ -203,12 +193,11 @@ class ProfileViewController: UIViewController {
             
             self?.progressRing.stopAnimating()
             
-            self?.saveButtonBar.isHidden = true
+            self?.saveButton.isHidden = true
             self?.editButton.isHidden = false
             
             self?.usernameTextField.isUserInteractionEnabled = false
-            self?.cameraButton.isUserInteractionEnabled = false
-            self?.cameraButton.alpha = 0.5
+            self?.cameraButton.isHidden = true
             
             self?.aboutTextView.isEditable = false
             
@@ -230,14 +219,6 @@ class ProfileViewController: UIViewController {
     @objc func keyboardWillAppear(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             view.frame.origin.y -= keyboardSize.height
-        }
-    }
-    
-    func applyCustomButtonStyle(for buttons: UIButton...) {
-        for eachButton in buttons {
-            eachButton.layer.borderWidth = 2
-            eachButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            eachButton.layer.cornerRadius = 15
         }
     }
     
@@ -307,10 +288,8 @@ class ProfileViewController: UIViewController {
     }
     
     func makeSaveButtons(active: Bool) {
-        gcdButton.alpha = active ? 1: 0.5
-        operationButton.alpha = active ? 1: 0.5
-        gcdButton.isUserInteractionEnabled = active
-        operationButton.isUserInteractionEnabled = active
+        saveButton.alpha = active ? 1: 0.5
+        saveButton.isUserInteractionEnabled = active
     }
     
 }

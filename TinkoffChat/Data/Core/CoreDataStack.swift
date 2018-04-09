@@ -66,15 +66,6 @@ class CoreDataStack {
         return saveContext
     }()
     
-    lazy var loadContext: NSManagedObjectContext = {
-        var loadContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        
-        loadContext.parent = mainContext
-        loadContext.mergePolicy = NSOverwriteMergePolicy
-        
-        return loadContext
-    }()
-    
     // MARK: - Save
     
     func performSave(context: NSManagedObjectContext, completion: @escaping (Error?) -> ()) {

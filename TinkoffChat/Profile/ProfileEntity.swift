@@ -10,6 +10,8 @@ import CoreData
 
 extension ProfileEntity {
     
+    // MARK: - Core Data
+    
     class func fetchRequest(model: NSManagedObjectModel) -> NSFetchRequest<ProfileEntity>? {
         let templateName = "ProfileFetchRequest"
         

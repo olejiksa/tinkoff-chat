@@ -80,7 +80,7 @@ class ConversationsListViewController: UIViewController {
 
 extension ConversationsListViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return communicationManager.conversations.count
+        return communicationManager.conversations[0].isEmpty || communicationManager.conversations[1].isEmpty ? 1 : communicationManager.conversations.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

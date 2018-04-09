@@ -15,13 +15,11 @@ class StorageManager: DataManager {
     // MARK: - DataManager
     
     func loadProfile(completion: @escaping (Profile?, Error?) -> ()) {
-        let loadContext = coreDataStack.loadContext
+        let mainContext = coreDataStack.mainContext
         
-        loadContext.perform {
-            guard let profileEntity = ProfileEntity.findOrInsert(in: loadContext) else {
-                DispatchQueue.main.async {
-                    completion(nil, nil)
-                }
+        mainContext.perform {
+            guard let profileEntity = ProfileEntity.findOrInsert(in: mainContext) else {
+                completion(nil, nil)
                 return
             }
             
@@ -32,9 +30,7 @@ class StorageManager: DataManager {
                 profile.picture = UIImage(data: picture)
             }
             
-            DispatchQueue.main.async {
-                completion(profile, nil)
-            }
+            completion(profile, nil)
         }
     }
     
