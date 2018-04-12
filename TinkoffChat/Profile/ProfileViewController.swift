@@ -113,15 +113,20 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name:
+            .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:
+            .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(inputModeDidChange), name:
+            .UIKeyboardWillChangeFrame, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillChangeFrame, object: nil)
         
         view.gestureRecognizers?.removeAll()
     }
@@ -222,10 +227,16 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    @objc func inputModeDidChange(notification: NSNotification) {
+        view.frame.origin.y = 0
+    }
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
         view.frame.origin.y = 0
     }
+    
+    
     
     func makeAction(_ sourceType: UIImagePickerControllerSourceType, appeal: String) {
         guard UIImagePickerController.isSourceTypeAvailable(sourceType) else {

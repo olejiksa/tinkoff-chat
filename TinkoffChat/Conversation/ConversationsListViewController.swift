@@ -25,14 +25,14 @@ class ConversationsListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.ConversationsListReloadData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .ConversationsListReloadData, object: nil)
         tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.ConversationsListReloadData, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .ConversationsListReloadData, object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,7 +80,7 @@ class ConversationsListViewController: UIViewController {
 
 extension ConversationsListViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return communicationManager.conversations[0].isEmpty || communicationManager.conversations[1].isEmpty ? 1 : communicationManager.conversations.count
+        return communicationManager.conversations.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

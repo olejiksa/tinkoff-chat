@@ -44,19 +44,21 @@ class ConversationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: Notification.Name.ConversationReloadData, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(turnSendOff), name: Notification.Name.ConversationTurnSendOff, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(inputModeDidChange), name: .UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .ConversationReloadData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(turnSendOff), name: .ConversationTurnSendOff, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.ConversationReloadData, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.ConversationTurnSendOff, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .ConversationReloadData, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .ConversationTurnSendOff, object: nil)
         
         conversation.hasUnreadMessages = false
         
@@ -75,7 +77,7 @@ class ConversationViewController: UIViewController {
                 self?.conversation.date = Date()
                 self?.tableView.reloadData()
                 
-                NotificationCenter.default.post(name: Notification.Name.ConversationsListSortData, object: nil)
+                NotificationCenter.default.post(name: .ConversationsListSortData, object: nil)
                 self?.sendButton.isEnabled = false
             } else {
                 let alert = UIAlertController(title: "Ошибка", message: error?.localizedDescription, preferredStyle: .alert)
@@ -104,6 +106,10 @@ class ConversationViewController: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             view.frame.origin.y -= keyboardSize.height
         }
+    }
+    
+    @objc private func inputModeDidChange(notification: NSNotification) {
+        view.frame.origin.y = 0
     }
     
     @objc private func reloadData() {

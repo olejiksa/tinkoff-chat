@@ -13,11 +13,11 @@ class CommunicationManager: CommunicatorDelegate {
         conversations.append([Conversation]())
         conversations.append([Conversation]())
         
-        NotificationCenter.default.addObserver(self, selector: #selector(sortData), name: Notification.Name.ConversationsListSortData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sortData), name: .ConversationsListSortData, object: nil)
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.ConversationsListSortData, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .ConversationsListSortData, object: nil)
     }
     
     func didFoundUser(userID: String, userName: String?) {
@@ -35,7 +35,7 @@ class CommunicationManager: CommunicatorDelegate {
         conversations[0].sort(by: Conversation.sortByDateAndName)
         
         // добавляем юзера в список диалогов
-        NotificationCenter.default.post(name: Notification.Name.ConversationsListReloadData, object: nil)
+        NotificationCenter.default.post(name: .ConversationsListReloadData, object: nil)
     }
     
     func didLostUser(userID: String) {
@@ -43,8 +43,8 @@ class CommunicationManager: CommunicatorDelegate {
             conversations[0].remove(at: index)
             
             // удаляем юзера из списка диалогов, отключаем кнопку отправки
-            NotificationCenter.default.post(name: Notification.Name.ConversationsListReloadData, object: nil)
-            NotificationCenter.default.post(name: Notification.Name.ConversationTurnSendOff, object: nil)
+            NotificationCenter.default.post(name: .ConversationsListReloadData, object: nil)
+            NotificationCenter.default.post(name: .ConversationTurnSendOff, object: nil)
         }
     }
     
@@ -65,8 +65,8 @@ class CommunicationManager: CommunicatorDelegate {
             conversations[0].sort(by: Conversation.sortByDateAndName)
             
             // обновляются оба списка: нужно добавить сообщение в диалог и изменить lastMessageText
-            NotificationCenter.default.post(name: Notification.Name.ConversationsListReloadData, object: nil)
-            NotificationCenter.default.post(name: Notification.Name.ConversationReloadData, object: nil)
+            NotificationCenter.default.post(name: .ConversationsListReloadData, object: nil)
+            NotificationCenter.default.post(name: .ConversationReloadData, object: nil)
         }
     }
     
