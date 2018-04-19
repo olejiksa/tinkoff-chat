@@ -68,12 +68,10 @@ class ConversationViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(inputModeDidChange),
                                                name: .UIKeyboardWillChangeFrame, object: nil)
         
-        CoreDataService.shared.coreDataStack.saveContext.perform {
-            if self.conversation.isOnline {
-                self.turnMessagePanelOn()
-            } else {
-                self.turnMessagePanelOff()
-            }
+        if self.conversation.isOnline {
+            self.turnMessagePanelOn()
+        } else {
+            self.turnMessagePanelOff()
         }
     }
     
@@ -84,10 +82,8 @@ class ConversationViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillChangeFrame, object: nil)
         
-        CoreDataService.shared.coreDataStack.saveContext.perform {
-            self.conversation.hasUnreadMessages = false
-            CoreDataService.shared.save()
-        }
+        self.conversation.hasUnreadMessages = false
+        CoreDataService.shared.save()
         
         view.gestureRecognizers?.removeAll()
     }
@@ -95,28 +91,20 @@ class ConversationViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func didTapSendButton() {
-        let textCanBe = messageTextField.text
-        var receiverCanBe: String? = ""
-        
-        CoreDataService.shared.coreDataStack.saveContext.perform {
-            receiverCanBe = self.conversation.interlocutor?.userId
-        }
-        
-        guard let text = textCanBe, let receiver = receiverCanBe, !text.isEmpty else { return }
+        guard let text = messageTextField.text,
+              let receiver = conversation.interlocutor?.userId, !text.isEmpty else { return }
         
         communicator.sendMessage(string: text, to: receiver) { [weak self] success, error in
             if success {
-                CoreDataService.shared.coreDataStack.saveContext.perform {
-                    let message: Message = CoreDataService.shared.add(.message)
-                    message.messageId = Message.generateMessageId()
-                    message.date = Date()
-                    message.isIncoming = false
-                    message.messageText = text
-                    message.conversation = self?.conversation
-                    message.lastMessageInConversation = self?.conversation
-                    
-                    CoreDataService.shared.save()
-                }
+                let message: Message = CoreDataService.shared.add(.message)
+                message.messageId = Message.generateMessageId()
+                message.date = Date()
+                message.isIncoming = false
+                message.messageText = text
+                message.conversation = self?.conversation
+                message.lastMessageInConversation = self?.conversation
+                
+                CoreDataService.shared.save()
                 
                 self?.messageTextField.text = nil
                 self?.sendButton.isEnabled = false
