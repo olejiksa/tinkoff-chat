@@ -236,8 +236,6 @@ class ProfileViewController: UIViewController {
         view.frame.origin.y = 0
     }
     
-    
-    
     func makeAction(_ sourceType: UIImagePickerControllerSourceType, appeal: String) {
         guard UIImagePickerController.isSourceTypeAvailable(sourceType) else {
             showErrorMessage("Данное устройство не имеет доступа к \(appeal).")
@@ -306,6 +304,7 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController: UITextFieldDelegate, UITextViewDelegate {
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         makeSaveButtons(active: changesToSave)
     }
@@ -313,9 +312,11 @@ extension ProfileViewController: UITextFieldDelegate, UITextViewDelegate {
     @objc func textViewDidChange(_ textView: UITextView) {
         makeSaveButtons(active: changesToSave)
     }
+    
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         defer {
             picker.dismiss(animated: true)
@@ -332,4 +333,5 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
+    
 }

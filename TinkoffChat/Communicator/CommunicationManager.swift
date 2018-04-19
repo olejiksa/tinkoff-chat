@@ -6,45 +6,52 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
+import CoreData
+
 class CommunicationManager: CommunicatorDelegate {
-    var conversations = [[Conversation]]()
-    
-    init() {
-        conversations.append([Conversation]())
-        conversations.append([Conversation]())
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(sortData), name: .ConversationsListSortData, object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: .ConversationsListSortData, object: nil)
-    }
     
     func didFoundUser(userID: String, userName: String?) {
-        guard conversations[0].index(where: { (item) -> Bool in item.id == userID }) == nil else {
-            return
+        CoreDataService.shared.coreDataStack.saveContext.perform {
+            let conversation = Conversation.withId(conversationId: userID)
+            guard conversation == nil else {
+                conversation?.isOnline = true
+                CoreDataService.shared.save()
+                return
+            }
+            
+            let user: User = CoreDataService.shared.add(.user)
+            user.userId = userID
+            user.name = userName
+            user.isOnline = true
+            
+            let chat: Conversation = CoreDataService.shared.add(.conversation)
+            chat.conversationId = userID
+            chat.hasUnreadMessages = false
+            chat.interlocutor = user
+            chat.appUser = nil
+            chat.lastMessage = nil
+            chat.isOnline = true
+            
+            user.addToConversations(chat)
+            
+            CoreDataService.shared.save()
         }
-        
-        conversations[0].append(Conversation(id: userID,
-                                             name: userName,
-                                             messages: [Message](),
-                                             lastMessageText: nil,
-                                             date: nil,
-                                             online: true,
-                                             hasUnreadMessages: false))
-        conversations[0].sort(by: Conversation.sortByDateAndName)
-        
-        // добавляем юзера в список диалогов
-        NotificationCenter.default.post(name: .ConversationsListReloadData, object: nil)
     }
     
     func didLostUser(userID: String) {
-        if let index = conversations[0].index(where: { (item) -> Bool in item.id == userID }) {
-            conversations[0].remove(at: index)
+        CoreDataService.shared.coreDataStack.saveContext.perform {
+            guard let user = User.withId(userId: userID),
+                let conversation = Conversation.withId(conversationId: userID)
+                else { return }
             
-            // удаляем юзера из списка диалогов, отключаем кнопку отправки
-            NotificationCenter.default.post(name: .ConversationsListReloadData, object: nil)
-            NotificationCenter.default.post(name: .ConversationTurnSendOff, object: nil)
+            if conversation.lastMessage != nil {
+                conversation.isOnline = false
+            } else {
+                CoreDataService.shared.delete(conversation)
+                CoreDataService.shared.delete(user)
+            }
+            
+            CoreDataService.shared.save()
         }
     }
     
@@ -57,20 +64,22 @@ class CommunicationManager: CommunicatorDelegate {
     }
     
     func didReceiveMessage(text: String, fromUser: String, toUser: String) {
-        if let index = conversations[0].index(where: { (item) -> Bool in item.id == fromUser }) {
-            conversations[0][index].messages.insert(Message(messageText: text, isIncoming: true), at: 0)
-            conversations[0][index].date = Date()
-            conversations[0][index].lastMessageText = conversations[0][index].messages.first?.messageText
-            conversations[0][index].hasUnreadMessages = true
-            conversations[0].sort(by: Conversation.sortByDateAndName)
+        CoreDataService.shared.coreDataStack.saveContext.perform {
+            guard let conversation = Conversation.withId(conversationId: fromUser)
+                else { return }
             
-            // обновляются оба списка: нужно добавить сообщение в диалог и изменить lastMessageText
-            NotificationCenter.default.post(name: .ConversationsListReloadData, object: nil)
-            NotificationCenter.default.post(name: .ConversationReloadData, object: nil)
+            let message: Message = CoreDataService.shared.add(.message)
+            message.messageId = Message.generateMessageId()
+            message.date = Date()
+            message.isIncoming = true
+            message.messageText = text
+            message.conversation = conversation
+            message.lastMessageInConversation = conversation
+            
+            conversation.hasUnreadMessages = true
+            
+            CoreDataService.shared.save()
         }
     }
     
-    @objc private func sortData() {
-        conversations[0].sort(by: Conversation.sortByDateAndName)
-    }
 }

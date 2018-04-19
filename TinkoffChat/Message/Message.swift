@@ -6,12 +6,12 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
-class Message: MessageCellConfiguration {
-    var messageText: String?
-    var isIncoming: Bool
+import Foundation
+
+extension Message: MessageCellConfiguration {
     
-    init(messageText: String?, isIncoming: Bool) {
-        self.messageText = messageText
-        self.isIncoming = isIncoming
+    @nonobjc class func generateMessageId() -> String {
+        return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)".data(using: .utf8)!.base64EncodedString()
     }
+    
 }

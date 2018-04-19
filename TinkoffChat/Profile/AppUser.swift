@@ -1,5 +1,5 @@
 //
-//  ProfileEntity
+//  AppUser
 //  TinkoffChat
 //
 //  Created by Олег Самойлов on 08/04/2018.
@@ -8,14 +8,12 @@
 
 import CoreData
 
-extension ProfileEntity {
+extension AppUser {
     
-    // MARK: - Core Data
-    
-    class func fetchRequest(model: NSManagedObjectModel) -> NSFetchRequest<ProfileEntity>? {
-        let templateName = "ProfileFetchRequest"
+    @nonobjc class func fetchRequest(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
+        let templateName = "AppUser"
         
-        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<ProfileEntity> else {
+        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
             assert(false, "No template with name \(templateName)!")
             return nil
         }
@@ -23,31 +21,31 @@ extension ProfileEntity {
         return fetchRequest
     }
     
-    class func insert(in context: NSManagedObjectContext) -> ProfileEntity? {
-        return NSEntityDescription.insertNewObject(forEntityName: "ProfileEntity", into: context) as? ProfileEntity
+    @nonobjc class func insert(in context: NSManagedObjectContext) -> AppUser? {
+        return NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser
     }
     
-    class func findOrInsert(in context: NSManagedObjectContext) -> ProfileEntity? {
+    @nonobjc class func findOrInsert(in context: NSManagedObjectContext) -> AppUser? {
         guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
             print("Model is not available in context!")
             assert(false)
             return nil
         }
         
-        var profile: ProfileEntity?
+        var profile: AppUser?
         guard let fetchRequest = fetchRequest(model: model) else {
             return nil
         }
         
         do {
             let results = try context.fetch(fetchRequest)
-            assert(results.count < 2, "Multiple profiles found!")
+            assert(results.count < 2, "Multiple users found!")
             if let foundProfile = results.first {
                 profile = foundProfile
             }
         }
         catch {
-            print("Failed to fetch profile: \(error)")
+            print("Failed to fetch user: \(error)")
         }
         
         if profile == nil {

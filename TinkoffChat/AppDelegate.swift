@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if let theme = savedTheme {
                 DispatchQueue.main.async {
-                    ThemesManager.sharedInstance.applyTheme(theme, isSaving: false)
+                    ThemesManager.shared.applyTheme(theme, isSaving: false)
                 }
             }
         }

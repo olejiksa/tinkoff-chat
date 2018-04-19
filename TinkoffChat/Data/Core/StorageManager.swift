@@ -6,8 +6,6 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
-import Foundation
-
 class StorageManager: DataManager {
     
     private let coreDataStack = CoreDataStack()
@@ -15,10 +13,8 @@ class StorageManager: DataManager {
     // MARK: - DataManager
     
     func loadProfile(completion: @escaping (Profile?, Error?) -> ()) {
-        let mainContext = coreDataStack.mainContext
-        
-        mainContext.perform {
-            guard let profileEntity = ProfileEntity.findOrInsert(in: mainContext) else {
+        coreDataStack.mainContext.perform {
+            guard let profileEntity = AppUser.findOrInsert(in: self.coreDataStack.mainContext) else {
                 completion(nil, nil)
                 return
             }
@@ -35,10 +31,8 @@ class StorageManager: DataManager {
     }
     
     func saveProfile(_ profile: Profile, completion: @escaping (Error?) -> ()) {
-        let saveContext = coreDataStack.saveContext
-        
-        saveContext.perform {
-            let profileEntity = ProfileEntity.findOrInsert(in: saveContext)
+        coreDataStack.saveContext.perform {
+            let profileEntity = AppUser.findOrInsert(in: self.coreDataStack.saveContext)
             profileEntity?.name = profile.name
             profileEntity?.about = profile.about
             
@@ -46,7 +40,7 @@ class StorageManager: DataManager {
                 profileEntity?.picture = UIImageJPEGRepresentation(picture, 1.0)
             }
             
-            self.coreDataStack.performSave(context: saveContext) { error in
+            self.coreDataStack.performSave(context: self.coreDataStack.saveContext) { error in
                 DispatchQueue.main.async {
                     completion(error)
                 }

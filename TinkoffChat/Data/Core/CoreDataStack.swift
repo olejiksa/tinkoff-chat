@@ -36,7 +36,7 @@ class CoreDataStack {
                                                options: options)
         }
         catch {
-            print("\(error)")
+            assert(false, "Error adding persistent store to coordinator: \(error)")
         }
         
         return coordinator
@@ -44,7 +44,7 @@ class CoreDataStack {
     
     // MARK: - Contexts
     
-    lazy var masterContext: NSManagedObjectContext = {
+    lazy private var masterContext: NSManagedObjectContext = {
         var masterContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         
         masterContext.persistentStoreCoordinator = persistanceStoreCoordinator
@@ -79,7 +79,7 @@ class CoreDataStack {
                 do {
                     try context.save()
                 } catch {
-                    print("\(error)")
+                    print("Context save error: \(error)")
                     completion(error)
                 }
                 

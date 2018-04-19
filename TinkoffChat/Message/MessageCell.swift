@@ -11,6 +11,7 @@ import UIKit
 class MessageCell: UITableViewCell, MessageCellConfiguration {
     
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     var messageText: String? {
         didSet {
@@ -20,9 +21,27 @@ class MessageCell: UITableViewCell, MessageCellConfiguration {
     
     var isIncoming = false
     
+    var date: Date? {
+        didSet {
+            formatDate()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         messageLabel.superview?.layer.cornerRadius = messageLabel.frame.height / 2
+    }
+    
+    private func formatDate() {
+        guard let date = date else {
+            dateLabel.text = String()
+            return
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = Calendar.current.isDateInToday(date) ? "HH:mm" : "dd MMM"
+        
+        dateLabel.text = dateFormatter.string(from: date)
     }
 
 }

@@ -1,5 +1,5 @@
 //
-//  ColorExtension.swift
+//  UIColor+RGB.swift
 //  TinkoffChat
 //
 //  Created by Олег Самойлов on 20/03/2018.
@@ -7,6 +7,7 @@
 //
 
 extension UIColor {
+    
     func rgb() -> (red: Int, green: Int, blue: Int, alpha: Int)? {
         var fRed: CGFloat = 0
         var fGreen: CGFloat = 0
@@ -30,4 +31,5 @@ extension UIColor {
         getWhite(&white, alpha: nil)
         return white > 0.5
     }
+    
 }

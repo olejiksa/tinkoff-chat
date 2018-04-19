@@ -6,13 +6,25 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class ConversationsListViewController: UIViewController {
-    @IBOutlet private weak var tableView: UITableView!
+    
+    private var fetchedResultsController: NSFetchedResultsController<Conversation>!
+    private var fetchResultManager = FetchedResultsManager()
+    private var controlsDelegate: ConversationControlsDelegate?
+    
+    // MARK: - MultipeerConnectivity
     
     private var communicator: Communicator = MultipeerCommunicator()
-    private var communicationManager = CommunicationManager()
+    private var communicationManager: CommunicatorDelegate = CommunicationManager()
+    
+    // MARK: - IBOutlets
+    
+    @IBOutlet private weak var tableView: UITableView!
+    
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,19 +32,23 @@ class ConversationsListViewController: UIViewController {
         communicator.delegate = communicationManager
         tableView.dataSource = self
         tableView.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .ConversationsListReloadData, object: nil)
-        tableView.reloadData()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        /* Сортировка как и в предыдущих работах:
+           высший приоритет - online
+           далее приоритетна сортировка по "свежести" последнего сообщения,
+           в случае коллизии применяется второй дескриптор: алфавит, по возрастанию */
+        let fetchRequest: NSFetchRequest<Conversation> = CoreDataService.shared.getAll(.conversation)
+        let onlineSortDescriptor = NSSortDescriptor(key: "isOnline", ascending: false)
+        let dateSortDescriptor = NSSortDescriptor(key: "lastMessage.date", ascending: false)
+        let nameSortDescriptor = NSSortDescriptor(key: "interlocutor.name", ascending: true)
+        fetchRequest.sortDescriptors = [onlineSortDescriptor, dateSortDescriptor, nameSortDescriptor]
         
-        NotificationCenter.default.removeObserver(self, name: .ConversationsListReloadData, object: nil)
+        fetchResultManager.delegate = tableView
+        fetchedResultsController = CoreDataService.shared.setupFRC(fetchRequest, fetchResultManager: fetchResultManager)
+        CoreDataService.shared.fetchData(fetchedResultsController)
+        
+        // Поначалу все диалоги находятся в истории...
+        fetchedResultsController?.fetchedObjects?.forEach({ $0.isOnline = false })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -41,8 +57,12 @@ class ConversationsListViewController: UIViewController {
         if segue.identifier == "showSegue" {
             if let destination = segue.destination as? ConversationViewController {
                 if let indexPath = tableView.indexPathForSelectedRow {
+                    controlsDelegate = destination
+                    controlsDelegate?.conversation = fetchedResultsController?.object(at: indexPath)
+
                     destination.communicator = communicator
-                    destination.conversation = communicationManager.conversations[indexPath.section][indexPath.row]
+                    destination.navigationItem.largeTitleDisplayMode = .never
+                    destination.navigationItem.title = controlsDelegate?.conversation.interlocutor?.name
                 }
             }
         } else if segue.identifier == "themesModalSegue" {
@@ -50,45 +70,36 @@ class ConversationsListViewController: UIViewController {
                 if let objcDestination = navigationDestination.viewControllers.first as? ThemesViewController {
                     objcDestination.delegate = self
                 } else if let swiftDestination = navigationDestination.viewControllers.first as? SwiftThemesViewController {
-                    swiftDestination.closure = {
-                        [unowned self] (controller: SwiftThemesViewController, selectedTheme: UIColor?) in
-                        guard let theme = selectedTheme else {
-                            return
-                        }
-                        
+                    swiftDestination.closure = { (controller: SwiftThemesViewController, selectedTheme: UIColor?) in
+                        guard let theme = selectedTheme else { return }
                         controller.view.backgroundColor = theme
-                        self.logThemeChanging(selectedTheme: theme)
-
-                        ThemesManager.sharedInstance.applyTheme(theme)
+                        ThemesManager.shared.applyTheme(theme)
                     }
                 }
             }
         }
     }
     
-    private func logThemeChanging(selectedTheme: UIColor) {
-        guard let rgb = selectedTheme.rgb() else { return }
-        print(rgb)
-    }
-    
-    @objc private func reloadData() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
 }
 
-extension ConversationsListViewController: UITableViewDataSource, UITableViewDelegate {
+// MARK: - UITableViewDataSource
+
+extension ConversationsListViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return communicationManager.conversations.count
+        guard let sectionsCount = fetchedResultsController?.sections?.count else {
+            return 0
+        }
+        
+        return sectionsCount
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return communicationManager.conversations[section].count
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "Online" : "History"
+        guard let sections = fetchedResultsController?.sections else {
+            return 0
+        }
+        
+        return sections[section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,15 +112,31 @@ extension ConversationsListViewController: UITableViewDataSource, UITableViewDel
             cell = ConversationCell(style: .default, reuseIdentifier: identifier)
         }
         
-        let conversation = communicationManager.conversations[indexPath.section][indexPath.row]
-        cell.name = conversation.name
-        cell.date = conversation.date
-        cell.lastMessageText = conversation.lastMessageText
-        cell.online = conversation.online
-        cell.hasUnreadMessages = conversation.hasUnreadMessages
+        if let conversation = fetchedResultsController?.object(at: indexPath) {
+            if let interlocutor = conversation.interlocutor {
+                cell.name = interlocutor.name
+            }
+            
+            cell.online = conversation.isOnline
+            cell.date = conversation.lastMessage?.date ?? nil
+            cell.lastMessageText = conversation.lastMessage?.messageText ?? nil
+            cell.hasUnreadMessages = conversation.hasUnreadMessages
+            
+            if conversation.isOnline && conversation == controlsDelegate?.conversation {
+                controlsDelegate?.turnMessagePanelOn()
+            } else {
+                controlsDelegate?.turnMessagePanelOff()
+            }
+        }
         
         return cell
     }
+    
+}
+
+// MARK: - UITableViewDelegate
+
+extension ConversationsListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
@@ -119,17 +146,17 @@ extension ConversationsListViewController: UITableViewDataSource, UITableViewDel
         performSegue(withIdentifier: "showSegue", sender: indexPath);
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
 }
 
+// MARK: - ThemesViewControllerDelegate
+
 extension ConversationsListViewController: ThemesViewControllerDelegate {
+    
     func themesViewController(_ controller: ThemesViewController?, didSelectTheme selectedTheme: UIColor?) {
-        guard let theme = selectedTheme else {
-            return
-        }
-        
+        guard let theme = selectedTheme else { return }
         controller?.view.backgroundColor = theme
-        logThemeChanging(selectedTheme: theme)
-        
-        ThemesManager.sharedInstance.applyTheme(theme)
+        ThemesManager.shared.applyTheme(theme)
     }
+    
 }

@@ -1,5 +1,5 @@
 //
-//  DateExtension.swift
+//  Date+String.swift
 //  TinkoffChat
 //
 //  Created by Олег Самойлов on 10/03/2018.
@@ -9,6 +9,7 @@
 import Foundation
 
 extension Date {
+    
     init?(from date: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
@@ -19,4 +20,5 @@ extension Date {
         
         self.init(timeInterval: 0, since: date)
     }
+    
 }

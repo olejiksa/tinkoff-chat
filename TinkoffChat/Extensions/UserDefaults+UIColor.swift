@@ -1,5 +1,5 @@
 //
-//  UserDefaultsExtension.swift
+//  UserDefaults+UIColor.swift
 //  TinkoffChat
 //
 //  Created by Олег Самойлов on 22/03/2018.
@@ -7,6 +7,7 @@
 //
 
 extension UserDefaults {
+    
     func colorForKey(key: String) -> UIColor? {
         var color: UIColor?
         if let colorData = data(forKey: key) {
@@ -22,4 +23,5 @@ extension UserDefaults {
         }
         set(colorData, forKey: key)
     }
+    
 }

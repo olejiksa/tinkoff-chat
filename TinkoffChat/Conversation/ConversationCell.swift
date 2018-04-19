@@ -11,13 +11,13 @@ import UIKit
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     var name: String? {
         didSet {
-            nameLabel.text = name ?? "Name"
+            nameLabel.text = name ?? "Имя"
         }
     }
     
     var lastMessageText: String? {
         didSet {
-            messageLabel.text = lastMessageText ?? "No messages yet"
+            messageLabel.text = lastMessageText ?? "Еще нет сообщений"
             updateFont()
         }
     }
@@ -56,7 +56,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     
     private func formatDate() {
         guard let date = date else {
-            dateLabel.text = "Date"
+            dateLabel.text = String()
             return
         }
         

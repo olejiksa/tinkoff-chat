@@ -6,12 +6,18 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class ConversationViewController: UIViewController {
-    private var sendLock = false
+    
     var communicator: Communicator!
     var conversation: Conversation!
+    
+    private var fetchedResultController: NSFetchedResultsController<Message>!
+    private var fetchResultManager = FetchedResultsManager()
+
+    // MARK: - Outlets
     
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
@@ -22,21 +28,32 @@ class ConversationViewController: UIViewController {
     @IBOutlet private weak var messageTextField: UITextField!
     @IBOutlet private weak var sendButton: UIButton!
     
+    // MARK: - UIViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.title = conversation.name
         
-        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
         
+        let fetchRequest: NSFetchRequest<Message> = CoreDataService.shared.fetchRequest(.messagesInConversation, substitutionDictionary: ["conversationId": conversation.conversationId!])!
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchResultManager.delegate = tableView
+        fetchedResultController = CoreDataService.shared.setupFRC(fetchRequest, fetchResultManager: fetchResultManager)
+        CoreDataService.shared.fetchData(fetchedResultController!)
+        
+        /* Содержимое messageTextField просматривается
+         * для изменения состояния sendButton */
         messageTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
+        // Обработка тапов в любой точке view вне самой клавиатуры
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
         
-        if conversation.messages.count > 0 {
-            tableView.reloadData()
+        if let count = conversation.messages?.count, count > 0 {
+            // Скроллинг до последнего сообщения после загрузки данных
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
@@ -44,11 +61,20 @@ class ConversationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(inputModeDidChange), name: .UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .ConversationReloadData, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(turnSendOff), name: .ConversationTurnSendOff, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear),
+                                               name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(inputModeDidChange),
+                                               name: .UIKeyboardWillChangeFrame, object: nil)
+        
+        CoreDataService.shared.coreDataStack.saveContext.perform {
+            if self.conversation.isOnline {
+                self.turnMessagePanelOn()
+            } else {
+                self.turnMessagePanelOff()
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -57,35 +83,64 @@ class ConversationViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .ConversationReloadData, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .ConversationTurnSendOff, object: nil)
         
-        conversation.hasUnreadMessages = false
+        CoreDataService.shared.coreDataStack.saveContext.perform {
+            self.conversation.hasUnreadMessages = false
+            CoreDataService.shared.save()
+        }
         
         view.gestureRecognizers?.removeAll()
     }
     
-    @IBAction func didSendButtonTap() {
-        guard let text = messageTextField.text, !text.isEmpty else { return }
+    // MARK: - Actions
+    
+    @IBAction private func didTapSendButton() {
+        let textCanBe = messageTextField.text
+        var receiverCanBe: String? = ""
         
-        communicator.sendMessage(string: text, to: conversation.id) { [weak self] success, error in
+        CoreDataService.shared.coreDataStack.saveContext.perform {
+            receiverCanBe = self.conversation.interlocutor?.userId
+        }
+        
+        guard let text = textCanBe, let receiver = receiverCanBe, !text.isEmpty else { return }
+        
+        communicator.sendMessage(string: text, to: receiver) { [weak self] success, error in
             if success {
+                CoreDataService.shared.coreDataStack.saveContext.perform {
+                    let message: Message = CoreDataService.shared.add(.message)
+                    message.messageId = Message.generateMessageId()
+                    message.date = Date()
+                    message.isIncoming = false
+                    message.messageText = text
+                    message.conversation = self?.conversation
+                    message.lastMessageInConversation = self?.conversation
+                    
+                    CoreDataService.shared.save()
+                }
+                
                 self?.messageTextField.text = nil
-                
-                self?.conversation.messages.insert(Message(messageText: text, isIncoming: false), at: 0)
-                self?.conversation.lastMessageText = text
-                self?.conversation.date = Date()
-                self?.tableView.reloadData()
-                
-                NotificationCenter.default.post(name: .ConversationsListSortData, object: nil)
                 self?.sendButton.isEnabled = false
             } else {
-                let alert = UIAlertController(title: "Ошибка", message: error?.localizedDescription, preferredStyle: .alert)
+                let alert = UIAlertController(title: "Ошибка",
+                                              message: error?.localizedDescription,
+                                              preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self?.present(alert, animated: true)
             }
         }
     }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        if textField == messageTextField {
+            if let text = messageTextField.text, !text.trimmingCharacters(in: .whitespaces).isEmpty {
+                sendButton.isEnabled = true
+            } else {
+                sendButton.isEnabled = false
+            }
+        }
+    }
+    
+    // MARK: - Keyboard
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
@@ -112,42 +167,33 @@ class ConversationViewController: UIViewController {
         view.frame.origin.y = 0
     }
     
-    @objc private func reloadData() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    @objc private func turnSendOff() {
-        DispatchQueue.main.async {
-            self.sendLock = true
-        }
-    }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        if textField == messageTextField {
-            if let text = messageTextField.text, !text.trimmingCharacters(in: .whitespaces).isEmpty, !sendLock {
-                sendButton.isEnabled = true
-            } else {
-                sendButton.isEnabled = false
-            }
-        }
-    }
 }
 
+// MARK: - UITableViewDataSource
+
 extension ConversationViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        guard let sectionsCount = fetchedResultController?.sections?.count else {
+            return 0
+        }
+        
+        return sectionsCount
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conversation.messages.count
+        guard let sections = fetchedResultController.sections else {
+            return 0
+        }
+        
+        return sections[section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = conversation.messages[indexPath.row]
-        let identifier = message.isIncoming ? "MessageIn" : "MessageOut"
         var cell: MessageCell
+        
+        let message = fetchedResultController.object(at: indexPath)
+        let identifier = message.isIncoming ? "MessageIn" : "MessageOut"
         
         if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: identifier) as? MessageCell {
             cell = dequeuedCell
@@ -158,7 +204,29 @@ extension ConversationViewController: UITableViewDataSource, UITableViewDelegate
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.messageText = message.messageText
         cell.isIncoming = message.isIncoming
+        cell.date = message.date
         
         return cell
     }
+    
+}
+
+// MARK: - ConversationControlsDelegate
+
+extension ConversationViewController: ConversationControlsDelegate {
+    
+    func turnMessagePanelOn() {
+        DispatchQueue.main.async {
+            self.textFieldDidChange(self.messageTextField)
+            self.messageTextField.isEnabled = true
+        }
+    }
+    
+    func turnMessagePanelOff() {
+        DispatchQueue.main.async {
+            self.sendButton.isEnabled = false
+            self.messageTextField.isEnabled = false
+        }
+    }
+    
 }

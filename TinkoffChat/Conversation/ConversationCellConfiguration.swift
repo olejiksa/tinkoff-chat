@@ -6,8 +6,6 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
-import Foundation
-
 protocol ConversationCellConfiguration {
     var name: String? { get set }
     var lastMessageText: String? { get set }

@@ -10,7 +10,7 @@ import Foundation
 
 final class ThemesManager {
     
-    static let sharedInstance = ThemesManager()
+    static let shared = ThemesManager()
 
     private init() {}
     
