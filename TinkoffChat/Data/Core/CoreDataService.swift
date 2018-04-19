@@ -69,12 +69,10 @@ class CoreDataService {
     }
     
     func fetchData<T>(_ fetchedResultController: NSFetchedResultsController<T>) where T: NSManagedObject {
-        coreDataStack.saveContext.perform {
-            do {
-                try fetchedResultController.performFetch()
-            } catch {
-                print()
-            }
+        do {
+            try fetchedResultController.performFetch()
+        } catch {
+            print()
         }
     }
     
