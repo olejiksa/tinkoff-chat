@@ -6,6 +6,9 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
+import Foundation
+import UIKit
+
 extension UserDefaults {
     
     func colorForKey(key: String) -> UIColor? {

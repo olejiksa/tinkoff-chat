@@ -12,17 +12,19 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    private let rootAssembly = RootAssembly()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        DispatchQueue.global(qos: .userInteractive).async {
-            let savedTheme = UserDefaults.standard.colorForKey(key: "themeColor")
-            
-            if let theme = savedTheme {
-                DispatchQueue.main.async {
-                    ThemesManager.shared.applyTheme(theme, isSaving: false)
-                }
-            }
-        }
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let controller = rootAssembly.presentationAssembly.conversationsListViewController()
+        
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [controller]
+        
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         
         return true
     }

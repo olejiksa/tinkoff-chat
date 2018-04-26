@@ -6,6 +6,8 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
+import UIKit
+
 extension UIColor {
     
     func rgb() -> (red: Int, green: Int, blue: Int, alpha: Int)? {

@@ -6,11 +6,20 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-extension UITableView: ConversationDelegate {
+protocol IDataProviderDelegate: class {
+    func beginUpdates()
+    func endUpdates()
+    
+    func insertRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation)
+    func deleteRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation)
+    func reloadRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation)
+}
+
+extension UITableView: IDataProviderDelegate {
     
     // Nothing else...
-    // Just for UITableView usage as a ConversationDelegate protocol object
+    // Just for UITableView usage as a IDataProviderDelegate protocol object
     
 }
