@@ -13,7 +13,6 @@ class ConversationViewController: UIViewController {
     // MARK: - Dependencies
     
     private var model: ConversationModel
-    var dataProvider: MessagesDataProvider?
     
     // MARK: - Initializers
     
@@ -43,7 +42,7 @@ class ConversationViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
-        dataProvider = MessagesDataProvider(delegate: tableView, fetchRequest: model.frcService.messagesInConversation(with: model.conversation.conversationId!)!, context: model.frcService.saveContext)
+        model.dataProvider = MessagesDataProvider(delegate: tableView, fetchRequest: model.frcService.messagesInConversation(with: model.conversation.conversationId!)!, context: model.frcService.saveContext)
         
         /* Содержимое messageTextField просматривается
          * для изменения состояния sendButton */
@@ -177,7 +176,7 @@ class ConversationViewController: UIViewController {
 extension ConversationViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let sectionsCount = dataProvider?.fetchedResultsController.sections?.count else {
+        guard let sectionsCount = model.dataProvider?.fetchedResultsController.sections?.count else {
             return 0
         }
         
@@ -185,7 +184,7 @@ extension ConversationViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = dataProvider?.fetchedResultsController.sections else {
+        guard let sections = model.dataProvider?.fetchedResultsController.sections else {
             return 0
         }
         
@@ -195,7 +194,7 @@ extension ConversationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: MessageCell?
         
-        if let message = dataProvider?.fetchedResultsController.object(at: indexPath) {
+        if let message = model.dataProvider?.fetchedResultsController.object(at: indexPath) {
             let identifier = message.isIncoming ? "MessageIn" : "MessageOut"
             
             if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: identifier) as? MessageCell {

@@ -19,6 +19,7 @@ class ConversationModel: IConversationModel {
     
     var conversation: Conversation
     var communicationService: ICommunicatorDelegate
+    var dataProvider: MessagesDataProvider?
     
     init(communicationService: ICommunicatorDelegate,
          frcService: IFRCService,
