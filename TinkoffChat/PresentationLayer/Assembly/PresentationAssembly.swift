@@ -17,10 +17,10 @@ protocol IPresentationAssembly {
 
 class PresentationAssembly: IPresentationAssembly {
     
-    private let serviceAssembly: IServicesAssembly
+    private let servicesAssembly: IServicesAssembly
     
     init(serviceAssembly: IServicesAssembly) {
-        self.serviceAssembly = serviceAssembly
+        self.servicesAssembly = serviceAssembly
     }
     
     // MARK: - ConversationViewController
@@ -29,17 +29,18 @@ class PresentationAssembly: IPresentationAssembly {
         return ConversationViewController(model: model)
     }
     
-    // MARK: - ConversationViewController
+    // MARK: - ConversationsListViewController
     
     func conversationsListViewController() -> ConversationsListViewController {
         return ConversationsListViewController(model: conversationsListModel(),
-                                               presentationAssembly: self)
+                                               presentationAssembly: self,
+                                               servicesAssembly: servicesAssembly)
     }
     
-    private func conversationsListModel() -> IConversationListModel {
-        return ConversationsListModel(communicationService: serviceAssembly.communicationService,
-                                      themesService: serviceAssembly.themesService,
-                                      frcService: serviceAssembly.frcService)
+    private func conversationsListModel() -> IConversationsListModel {
+        return ConversationsListModel(communicationService: servicesAssembly.communicationService,
+                                      themesService: servicesAssembly.themesService,
+                                      frcService: servicesAssembly.frcService)
     }
     
     // MARK: - ProfileViewController
@@ -49,7 +50,8 @@ class PresentationAssembly: IPresentationAssembly {
     }
     
     private func profileModel() -> IAppUserModel {
-        return ProfileModel(dataService: CoreDataManager())
+        return ProfileModel(dataService: CoreDataManager(),
+                            keyboardService: servicesAssembly.keyboardService)
     }
     
     // MARK: - ThemesViewController

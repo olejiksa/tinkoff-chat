@@ -8,26 +8,26 @@
 
 import UIKit
 
-protocol IConversationListModel: class {
+protocol IConversationsListModel: class {
     var communicationService: ICommunicatorDelegate { get }
-    var frcService: IFRCService { get }
+    var frcService: FRCService { get }
     var dataProvider: ConversationsDataProvider? { get set }
     
     func restoreThemeSettings()
     func saveSettings(for theme: UIColor)
 }
 
-class ConversationsListModel: IConversationListModel {
+class ConversationsListModel: IConversationsListModel {
     
     private let themesService: IThemesService
     
     var communicationService: ICommunicatorDelegate
-    var frcService: IFRCService
+    var frcService: FRCService
     var dataProvider: ConversationsDataProvider?
 
     init(communicationService: ICommunicatorDelegate,
          themesService: IThemesService,
-         frcService: IFRCService) {
+         frcService: FRCService) {
         self.themesService = themesService
         self.communicationService = communicationService
         self.frcService = frcService

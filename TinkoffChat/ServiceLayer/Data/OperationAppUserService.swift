@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OperationAppUserService: IDataManager {
+class OperationAppUserService: IAppUserService {
     
     private let filesManager = FilesManager()
     
@@ -44,22 +44,6 @@ class OperationAppUserService: IDataManager {
         let userOperationQueue = OperationQueue()
         userOperationQueue.maxConcurrentOperationCount = 1
         userOperationQueue.addOperation(save)
-    }
-    
-    func appendConversation(id: String, userName: String) {
-        // Not implemented yet
-    }
-    
-    func makeConversationOffline(id: String) {
-        // Not implemented yet
-    }
-    
-    func readConversation(id: String) {
-        // Not implemented yet
-    }
-    
-    func appendMessage(text: String, conversationId: String, isIncoming: Bool) {
-        // Not implemented yet
     }
     
 }

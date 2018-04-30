@@ -79,6 +79,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         stylizeWhenLoading()
         
         aboutTextView.delegate = self
@@ -113,13 +114,18 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        turnKeyboard(on: true)
+        
+        model.setKeyboardDelegate(self.view)
+        model.turnKeyboard(on: true)
+        
         configureNavigationPane()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        turnKeyboard(on: false)
+        
+        model.turnKeyboard(on: false)
+        model.setKeyboardDelegate(nil)
     }
     
     // MARK: - IBActions
@@ -164,52 +170,6 @@ class ProfileViewController: UIViewController {
             self?.progressRing.stopAnimating()
             self?.isEdit(on: false)
         }
-    }
-    
-    // MARK: - Keyboard
-    
-    private func turnKeyboard(on: Bool) {
-        if on {
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name:
-                .UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:
-                .UIKeyboardWillHide, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(inputModeDidChange), name:
-                .UIKeyboardWillChangeFrame, object: nil)
-            
-            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
-        } else {
-            NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-            NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillChangeFrame, object: nil)
-            
-            view.gestureRecognizers?.removeAll()
-        }
-    }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        if view.frame.origin.y >= 0 {
-            return
-        }
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            view.frame.origin.y += keyboardSize.height
-        }
-    }
-    
-    @objc private func keyboardWillAppear(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            view.frame.origin.y -= keyboardSize.height
-        }
-    }
-    
-    @objc private func inputModeDidChange(notification: NSNotification) {
-        view.frame.origin.y = 0
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
-        view.frame.origin.y = 0
     }
     
     // MARK: - Avatar

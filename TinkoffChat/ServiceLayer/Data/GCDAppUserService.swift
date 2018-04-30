@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GCDAppUserService: IDataManager {
+class GCDAppUserService: IAppUserService {
     
     private let fileManager = FilesManager()
     
@@ -47,22 +47,6 @@ class GCDAppUserService: IDataManager {
            
         }
         
-    }
-    
-    func appendConversation(id: String, userName: String) {
-        // Not implemented yet
-    }
-    
-    func makeConversationOffline(id: String) {
-        // Not implemented yet
-    }
-    
-    func readConversation(id: String) {
-        // Not implemented yet
-    }
-    
-    func appendMessage(text: String, conversationId: String, isIncoming: Bool) {
-        // Not implemented yet
     }
     
 }

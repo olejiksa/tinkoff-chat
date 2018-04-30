@@ -14,7 +14,7 @@ protocol IAppUser {
     var picture: UIImage? { get set }
 }
 
-protocol IAppUserModel: IAppUser {
+protocol IAppUserModel: IAppUser, IKeyboardModel {
     func set(on profile: IAppUser)
     
     func load(_ completion: @escaping (IAppUser?) -> ())
@@ -40,9 +40,12 @@ class ProfileModel: IAppUserModel {
     var picture: UIImage?
     
     private let dataService: IDataManager
+    private var keyboardService: IKeyboardService
     
-    init(dataService: IDataManager, name: String? = nil, about: String? = nil, picture: UIImage? = nil) {
+    init(dataService: IDataManager, keyboardService: IKeyboardService,
+         name: String? = nil, about: String? = nil, picture: UIImage? = nil) {
         self.dataService = dataService
+        self.keyboardService = keyboardService
         
         self.name = name
         self.about = about
@@ -55,12 +58,24 @@ class ProfileModel: IAppUserModel {
         self.picture = profile.picture
     }
     
+    // MARK: - IDataService
+    
     func load(_ completion: @escaping (IAppUser?) -> ()) {
         dataService.loadAppUser(completion: completion)
     }
     
     func save(_ completion: @escaping (Bool) -> ()) {
         dataService.saveAppUser(self, completion: completion)
+    }
+    
+    // MARK: - IKeyboardService
+    
+    func setKeyboardDelegate(_ delegate: UIView?) {
+        keyboardService.delegate = delegate
+    }
+    
+    func turnKeyboard(on: Bool) {
+        keyboardService.turnKeyboard(on: on)
     }
     
 }

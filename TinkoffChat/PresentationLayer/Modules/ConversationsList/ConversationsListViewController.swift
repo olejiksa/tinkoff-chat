@@ -16,14 +16,17 @@ class ConversationsListViewController: UIViewController {
     
     // MARK: - Dependencies
     
-    private var model: IConversationListModel
+    private var model: IConversationsListModel
     private let presentationAssembly: IPresentationAssembly
+    private let servicesAssembly: IServicesAssembly
     
     // MARK: - Initializers
     
-    init(model: IConversationListModel, presentationAssembly: IPresentationAssembly) {
+    init(model: IConversationsListModel, presentationAssembly: IPresentationAssembly,
+         servicesAssembly: IServicesAssembly) {
         self.model = model
         self.presentationAssembly = presentationAssembly
+        self.servicesAssembly = servicesAssembly
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -36,6 +39,7 @@ class ConversationsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         model.restoreThemeSettings()
         configureTableView()
@@ -159,7 +163,7 @@ extension ConversationsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let conversation = model.dataProvider?.fetchedResultsController.object(at: indexPath)
               else { return }
-        let controller = presentationAssembly.conversationViewController(model: ConversationModel(communicationService: model.communicationService, frcService: model.frcService, conversation: conversation))
+        let controller = presentationAssembly.conversationViewController(model: ConversationModel(communicationService: model.communicationService, frcService: model.frcService, keyboardService: servicesAssembly.keyboardService, conversation: conversation))
 
         controller.navigationItem.title = conversation.interlocutor?.name
         navigationController?.pushViewController(controller, animated: true)

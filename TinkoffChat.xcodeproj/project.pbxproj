@@ -19,6 +19,8 @@
 		EB3697A2203DD3620065EC99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB3697A1203DD3620065EC99 /* Assets.xcassets */; };
 		EB3697A5203DD3620065EC99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */; };
 		EB55B0552063B209006A7178 /* UserDefaults+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB55B0542063B209006A7178 /* UserDefaults+UIColor.swift */; };
+		EB6E022F2096740E00EE439D /* AppUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E022E2096740E00EE439D /* AppUserService.swift */; };
+		EB6E02322096755500EE439D /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E02312096755500EE439D /* KeyboardService.swift */; };
 		EB7027612061A0FC004BB040 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027602061A0FC004BB040 /* UIColor+RGB.swift */; };
 		EB7027642061BE0D004BB040 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027632061BE0D004BB040 /* ThemesViewController.swift */; };
 		EBBC25C82083A08600F4982C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC25C72083A08600F4982C /* CoreDataManager.swift */; };
@@ -68,6 +70,8 @@
 		EB3697A4203DD3620065EC99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB3697A6203DD3620065EC99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB55B0542063B209006A7178 /* UserDefaults+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UIColor.swift"; sourceTree = "<group>"; };
+		EB6E022E2096740E00EE439D /* AppUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserService.swift; sourceTree = "<group>"; };
+		EB6E02312096755500EE439D /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
 		EB7027602061A0FC004BB040 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		EB7027632061BE0D004BB040 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		EBBC25C72083A08600F4982C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -143,6 +147,14 @@
 			path = TinkoffChat;
 			sourceTree = "<group>";
 		};
+		EB6E02302096753C00EE439D /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				EB6E02312096755500EE439D /* KeyboardService.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
 		EB7027622061A263004BB040 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,8 +191,9 @@
 			isa = PBXGroup;
 			children = (
 				EBF0F025208B64D800287352 /* Assembly */,
-				EBF0F059208F7E0400287352 /* Themes */,
 				EBF0F0612091D7F000287352 /* Data */,
+				EB6E02302096753C00EE439D /* Keyboard */,
+				EBF0F059208F7E0400287352 /* Themes */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -350,9 +363,10 @@
 			children = (
 				EBF0F034208B99FB00287352 /* Operations */,
 				EBBCDB782087657C0095184A /* CommunicationService.swift */,
-				EBF0F064209227E500287352 /* FRCService.swift */,
+				EB6E022E2096740E00EE439D /* AppUserService.swift */,
 				EBFDEE18206DAA08004008C1 /* GCDAppUserService.swift */,
 				EBFDEE26206DEE79004008C1 /* OperationAppUserService.swift */,
+				EBF0F064209227E500287352 /* FRCService.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -458,11 +472,13 @@
 				EBF0F05B208F7E1300287352 /* ThemesService.swift in Sources */,
 				EBBCDB7F208765800095184A /* MultipeerCommunicator.swift in Sources */,
 				EB36979B203DD3620065EC99 /* AppDelegate.swift in Sources */,
+				EB6E02322096755500EE439D /* KeyboardService.swift in Sources */,
 				EBF0F058208E997800287352 /* ConversationModel.swift in Sources */,
 				EBF0F029208B653100287352 /* CoreAssembly.swift in Sources */,
 				EBF0F02B208B658700287352 /* ServicesAssembly.swift in Sources */,
 				EBFDEE27206DEE79004008C1 /* OperationAppUserService.swift in Sources */,
 				EBF0F02D208B659F00287352 /* PresentationAssembly.swift in Sources */,
+				EB6E022F2096740E00EE439D /* AppUserService.swift in Sources */,
 				EBF0F020208B62EF00287352 /* RootAssembly.swift in Sources */,
 				EB29C7062052C5320034D6D8 /* ConversationsListViewController.swift in Sources */,
 				EBF0F051208E5EC200287352 /* ThemesModel.swift in Sources */,

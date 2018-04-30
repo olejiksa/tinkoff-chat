@@ -20,6 +20,7 @@ class ConversationsDataProvider: NSObject {
                                                                             sectionNameKeyPath: nil,
                                                                             cacheName: nil)
         super.init()
+                
         fetchedResultsController.delegate = self
         performFetch()
         

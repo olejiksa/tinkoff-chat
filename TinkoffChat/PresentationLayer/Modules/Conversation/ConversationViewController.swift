@@ -57,10 +57,10 @@ class ConversationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        turnKeyboard(on: true)
-        
-        // Обработка тапов в любой точке view вне самой клавиатуры
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: nil)
+        model.setKeyboardDelegate(view)
+        model.turnKeyboard(on: true)
         
         if model.conversation.isOnline {
             turnMessagePanelOn()
@@ -72,7 +72,8 @@ class ConversationViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        turnKeyboard(on: false)
+        model.turnKeyboard(on: false)
+        model.setKeyboardDelegate(nil)
         model.makeRead()
         
         view.gestureRecognizers?.removeAll()
@@ -108,33 +109,6 @@ class ConversationViewController: UIViewController {
         }
     }
     
-    // MARK: - Keyboard
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
-        view.frame.origin.y = 0
-    }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        if view.frame.origin.y >= 0 {
-            return
-        }
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            view.frame.origin.y += keyboardSize.height
-        }
-    }
-    
-    @objc private func keyboardWillAppear(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            view.frame.origin.y -= keyboardSize.height
-        }
-    }
-    
-    @objc private func inputModeDidChange(notification: NSNotification) {
-        view.frame.origin.y = 0
-    }
-    
     // MARK: - Private methods
     
     private func configureTableView() {
@@ -146,27 +120,6 @@ class ConversationViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self as? UITableViewDelegate
         tableView.rowHeight = UITableViewAutomaticDimension
-    }
-    
-    // MARK: - Keyboard
-    
-    private func turnKeyboard(on: Bool) {
-        if on {
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name:
-                .UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:
-                .UIKeyboardWillHide, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(inputModeDidChange), name:
-                .UIKeyboardWillChangeFrame, object: nil)
-            
-            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
-        } else {
-            NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-            NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-            NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillChangeFrame, object: nil)
-            
-            view.gestureRecognizers?.removeAll()
-        }
     }
     
 }
