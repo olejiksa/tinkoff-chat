@@ -10,20 +10,21 @@ import UIKit
 
 protocol IConversationModel: IKeyboardModel {
     var conversation: Conversation { get set }
-    var communicationService: ICommunicatorDelegate { get }
-    var frcService: IFRCService { get }
     var dataProvider: MessagesDataProvider? { get set }
+    
+    var frcService: IFRCService { get set }
     
     func makeRead()
 }
 
 class ConversationModel: IConversationModel {
     
-    private var keyboardService: IKeyboardService
     var conversation: Conversation
-    var communicationService: ICommunicatorDelegate
-    var frcService: IFRCService
     var dataProvider: MessagesDataProvider?
+    
+    private var keyboardService: IKeyboardService
+    private var communicationService: ICommunicatorDelegate
+    var frcService: IFRCService
     
     init(communicationService: ICommunicatorDelegate,
          frcService: IFRCService,
@@ -48,6 +49,23 @@ class ConversationModel: IConversationModel {
     
     func turnKeyboard(on: Bool) {
         keyboardService.turnKeyboard(on: on)
+    }
+    
+    // MARK: - ICommunicatorDelegate
+    
+    enum SendMessageResult {
+        case success
+        case error(String?)
+    }
+    
+    func sendMessage(text: String, receiver: String, completionHandler: (SendMessageResult) -> ()) {
+        communicationService.communicator.sendMessage(text: text, to: receiver) { success, error in
+            if success {
+                completionHandler(.success)
+            } else {
+                completionHandler(.error(error?.localizedDescription))
+            }
+        }
     }
     
 }

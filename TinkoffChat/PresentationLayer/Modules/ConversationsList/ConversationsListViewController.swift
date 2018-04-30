@@ -74,7 +74,8 @@ class ConversationsListViewController: UIViewController {
     }
     
     private func configureData() {
-        model.dataProvider = ConversationsDataProvider(delegate: tableView, fetchRequest: model.frcService.allConversations(), context: model.frcService.saveContext)
+        let pair = model.linkedServices()
+        model.dataProvider = ConversationsDataProvider(delegate: tableView, fetchRequest: pair.1.allConversations(), context: pair.1.saveContext)
     }
     
     @objc private func themes() {

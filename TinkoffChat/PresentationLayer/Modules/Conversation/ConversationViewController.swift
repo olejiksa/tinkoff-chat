@@ -68,15 +68,16 @@ class ConversationViewController: UIViewController {
     
     @IBAction private func didTapSendButton() {
         guard let text = messageTextField.text,
-              let receiver = model.conversation.interlocutor?.userId, !text.isEmpty else { return }
+              let receiver = model.conversation.conversationId, !text.isEmpty else { return }
         
-        model.communicationService.communicator.sendMessage(text: text, to: receiver) { [weak self] success, error in
-            if success {                
+        model.sendMessage(text: text, receiver: receiver) { [weak self] result in
+            switch result {
+            case .success:
                 self?.messageTextField.text = nil
                 self?.sendButton.isEnabled = false
-            } else {
+            case .error(let text):
                 let alert = UIAlertController(title: "Ошибка",
-                                              message: error?.localizedDescription,
+                                              message: text,
                                               preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self?.present(alert, animated: true)

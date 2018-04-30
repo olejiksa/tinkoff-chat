@@ -10,13 +10,17 @@ import Foundation
 
 class OperationAppUserService: IAppUserService {
     
-    private let filesManager = FilesManager()
+    private let fileManager: FilesManager
     
-    // MARK: - IDataService
+    init(fileManager: FilesManager) {
+        self.fileManager = fileManager
+    }
+    
+    // MARK: - IAppUserService
     
     func loadAppUser(completion: @escaping (IAppUser?) -> ()) {
         let load = LoadOperation(filenames: ("name.txt", "about.txt", "picture.jpg"),
-                                 filesManager: filesManager)
+                                 filesManager: fileManager)
         load.qualityOfService = .userInitiated
         load.completionBlock = {
             OperationQueue.main.addOperation {
@@ -29,7 +33,7 @@ class OperationAppUserService: IAppUserService {
     
     func saveAppUser(_ profile: IAppUser, completion: @escaping (Bool) -> ()) {
         let save = SaveOperation(profile: profile, filenames: ("name.txt", "about.txt", "picture.jpg"),
-                                 filesManager: filesManager)
+                                 filesManager: fileManager)
         save.qualityOfService = .userInitiated
         save.completionBlock = {
             OperationQueue.main.addOperation {

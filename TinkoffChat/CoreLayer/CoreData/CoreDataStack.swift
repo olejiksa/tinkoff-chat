@@ -8,7 +8,17 @@
 
 import CoreData
 
-class CoreDataStack {
+protocol ICoreDataStack {
+    
+    var managedObjectModel: NSManagedObjectModel { get }
+    
+    var mainContext: NSManagedObjectContext { get }
+    var saveContext: NSManagedObjectContext { get }
+    
+    func performSave(context: NSManagedObjectContext, completion: @escaping (Error?) -> ())
+}
+
+class CoreDataStack: ICoreDataStack {
     
     // MARK: - Model
     

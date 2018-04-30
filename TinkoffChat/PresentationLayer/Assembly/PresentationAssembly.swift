@@ -31,7 +31,8 @@ class PresentationAssembly: IPresentationAssembly {
     }
     
     func conversationModel(model: IConversationsListModel, conversation: Conversation) -> ConversationModel {
-        return ConversationModel(communicationService: model.communicationService, frcService: model.frcService, keyboardService: servicesAssembly.keyboardService, conversation: conversation)
+        let pair = model.linkedServices()
+        return ConversationModel(communicationService: pair.0, frcService: pair.1, keyboardService: servicesAssembly.keyboardService, conversation: conversation)
     }
     
     // MARK: - ConversationsListViewController

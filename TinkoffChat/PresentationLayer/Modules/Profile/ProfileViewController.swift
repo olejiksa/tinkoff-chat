@@ -6,7 +6,6 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
-import Photos
 import UIKit
 
 class ProfileViewController: UIViewController {

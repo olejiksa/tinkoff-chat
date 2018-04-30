@@ -8,11 +8,20 @@
 
 import Foundation
 
+protocol IAppUserService: class {
+    func loadAppUser(completion: @escaping (IAppUser?) -> ())
+    func saveAppUser(_ profile: IAppUser, completion: @escaping (Bool) -> ())
+}
+
 class GCDAppUserService: IAppUserService {
     
-    private let fileManager = FilesManager()
+    private let fileManager: FilesManager
     
-    // MARK: - IDataService
+    init(fileManager: FilesManager) {
+        self.fileManager = fileManager
+    }
+    
+    // MARK: - IAppUserService
     
     func loadAppUser(completion: @escaping (IAppUser?) -> ()) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -44,9 +53,7 @@ class GCDAppUserService: IAppUserService {
                     completion(true)
                 }
             }
-           
         }
-        
     }
     
 }

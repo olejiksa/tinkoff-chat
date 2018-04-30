@@ -47,9 +47,10 @@ class MultipeerCommunicator: NSObject, ICommunicator {
     }
     
     func sendMessage(text: String, to userId: String, completionHandler: ((_ success: Bool, _ error: Error?) -> ())) {
-        guard let index = session.connectedPeers.index(where: {
-                  (item) -> Bool in
-                  item.displayName == userId }) else { return  }
+        guard let index = session.connectedPeers.index(where: { (item) -> Bool in item.displayName == userId }) else {
+            completionHandler(false, nil)
+            return
+        }
         
         let message = ["eventType": "TextMessage",
                        "text": text,

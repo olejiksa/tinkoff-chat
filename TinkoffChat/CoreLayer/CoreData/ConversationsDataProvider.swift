@@ -8,9 +8,13 @@
 
 import CoreData
 
-class ConversationsDataProvider: NSObject {
+protocol IDataProvider {
+    var delegate: IDataProviderDelegate? { get set }
+}
+
+class ConversationsDataProvider: NSObject, IDataProvider {
     
-    var delegate: IDataProviderDelegate?
+    weak var delegate: IDataProviderDelegate?
     var fetchedResultsController: NSFetchedResultsController<Conversation>
     
     init(delegate: IDataProviderDelegate, fetchRequest: NSFetchRequest<Conversation>, context: NSManagedObjectContext) {

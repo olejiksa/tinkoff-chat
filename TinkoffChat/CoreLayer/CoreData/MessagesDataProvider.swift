@@ -8,9 +8,9 @@
 
 import CoreData
 
-class MessagesDataProvider: NSObject {
+class MessagesDataProvider: NSObject, IDataProvider {
     
-    var delegate: IDataProviderDelegate?
+    weak var delegate: IDataProviderDelegate?
     var fetchedResultsController: NSFetchedResultsController<Message>
     
     init(delegate: IDataProviderDelegate?, fetchRequest: NSFetchRequest<Message>, context: NSManagedObjectContext) {

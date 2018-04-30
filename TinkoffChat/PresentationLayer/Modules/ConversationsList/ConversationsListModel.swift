@@ -8,30 +8,34 @@
 
 import UIKit
 
+typealias LinkedServices = (ICommunicatorDelegate, IFRCService)
+
 protocol IConversationsListModel: class {
-    var communicationService: ICommunicatorDelegate { get }
-    var frcService: FRCService { get }
     var dataProvider: ConversationsDataProvider? { get set }
     
     func restoreThemeSettings()
     func saveSettings(for theme: UIColor)
+    
+    func linkedServices() -> LinkedServices
 }
 
 class ConversationsListModel: IConversationsListModel {
     
     private let themesService: IThemesService
+    private var communicationService: ICommunicatorDelegate
+    private var frcService: IFRCService
     
-    var communicationService: ICommunicatorDelegate
-    var frcService: FRCService
     var dataProvider: ConversationsDataProvider?
 
     init(communicationService: ICommunicatorDelegate,
          themesService: IThemesService,
-         frcService: FRCService) {
+         frcService: IFRCService) {
         self.themesService = themesService
         self.communicationService = communicationService
         self.frcService = frcService
     }
+    
+    // MARK: - Themes
         
     func restoreThemeSettings() {
         themesService.load()
@@ -39,6 +43,13 @@ class ConversationsListModel: IConversationsListModel {
     
     func saveSettings(for theme: UIColor) {
         themesService.save(theme)
+    }
+    
+    // MARK: - ConversationModel
+    
+    // Needed to pass data into its controller...
+    func linkedServices() -> LinkedServices {
+        return (communicationService, frcService)
     }
     
 }

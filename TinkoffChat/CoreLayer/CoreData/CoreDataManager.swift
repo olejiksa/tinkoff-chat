@@ -33,7 +33,7 @@ protocol ICoreDataStackBackdoor: class {
 
 class CoreDataManager: IDataManager, ICoreDataStackBackdoor {
     
-    private let stack: CoreDataStack
+    private let stack: ICoreDataStack
     
     init() {
         stack = CoreDataStack()
