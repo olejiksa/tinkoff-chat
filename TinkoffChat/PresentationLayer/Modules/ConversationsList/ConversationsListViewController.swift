@@ -39,14 +39,10 @@ class ConversationsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         model.restoreThemeSettings()
         configureTableView()
-        
-        model.dataProvider = ConversationsDataProvider(delegate: tableView,
-                                                       fetchRequest: model.frcService.allConversations()!,
-                                                       context: model.frcService.saveContext)
+        configureData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +65,8 @@ class ConversationsListViewController: UIViewController {
                                         target: self,
                                         action: #selector(profile))
         navigationItem.setRightBarButton(rightItem, animated: true)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func configureTableView() {
@@ -76,6 +74,10 @@ class ConversationsListViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ConversationCell", bundle: nil),
                            forCellReuseIdentifier: "ConversationCell")
+    }
+    
+    private func configureData() {
+        model.dataProvider = ConversationsDataProvider(delegate: tableView, fetchRequest: model.frcService.allConversations(), context: model.frcService.saveContext)
     }
     
     @objc private func themes() {

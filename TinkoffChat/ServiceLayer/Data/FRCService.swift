@@ -9,9 +9,8 @@
 import CoreData
 
 protocol IFRCService: class {
-    func allConversations() -> NSFetchRequest<Conversation>?
-    func messagesInConversation(with id: String) -> NSFetchRequest<Message>?
-    
+    func allConversations() -> NSFetchRequest<Conversation>
+    func messagesInConversation(with id: String) -> NSFetchRequest<Message>
     var saveContext: NSManagedObjectContext { get }
 }
 
@@ -23,22 +22,23 @@ class FRCService: IFRCService {
         self.backdoor = backdoor
     }
     
-    func allConversations() -> NSFetchRequest<Conversation>? {
-        let online = NSSortDescriptor(key: "isOnline", ascending: false)
-        let date = NSSortDescriptor(key: "lastMessage.date", ascending: false)
-        let name = NSSortDescriptor(key: "interlocutor.name", ascending: true)
+    func allConversations() -> NSFetchRequest<Conversation> {
+        let fetchRequest = NSFetchRequest<Conversation>(entityName: "Conversation")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "isOnline", ascending: false),
+                                        NSSortDescriptor(key: "lastMessage.date", ascending: false),
+                                        NSSortDescriptor(key: "interlocutor.name", ascending: true)]
         
-        
-        let fr = NSFetchRequest<Conversation>(entityName: "Conversation")
-        fr.sortDescriptors = [online, date, name]
-        
-        return fr
+        return fetchRequest
     }
     
-    func messagesInConversation(with id: String) -> NSFetchRequest<Message>? {
-        return backdoor.fetchRequest("MessagesInConversation",
-                                     substitutionDictionary: ["id": id],
-                                     sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)])
+    func messagesInConversation(with id: String) -> NSFetchRequest<Message> {
+        let fetchRequest: NSFetchRequest<Message>? = backdoor.fetchRequest("MessagesInConversation", substitutionDictionary: ["id": id], sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)])
+        
+        if fetchRequest != nil {
+            return fetchRequest!
+        } else {
+            fatalError("Cannot use MessagesInConversation fetch request template")
+        }
     }
     
     var saveContext: NSManagedObjectContext {

@@ -42,31 +42,18 @@ class ConversationViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
-        model.dataProvider = MessagesDataProvider(delegate: tableView, fetchRequest: model.frcService.messagesInConversation(with: model.conversation.conversationId!)!, context: model.frcService.saveContext)
-        
-        /* Содержимое messageTextField просматривается
-         * для изменения состояния sendButton */
-        messageTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        
-        if let count = model.conversation.messages?.count, count > 0 {
-            // Скроллинг до последнего сообщения после загрузки данных
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-        }
+        configureDataProvider()
+        configureControls()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: nil)
         model.setKeyboardDelegate(view)
         model.turnKeyboard(on: true)
         
-        if model.conversation.isOnline {
-            turnMessagePanelOn()
-        } else {
-            turnMessagePanelOff()
-        }
+        configureNavigationBar()
+        turnMessagePanel(on: model.conversation.isOnline)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,15 +62,13 @@ class ConversationViewController: UIViewController {
         model.turnKeyboard(on: false)
         model.setKeyboardDelegate(nil)
         model.makeRead()
-        
-        view.gestureRecognizers?.removeAll()
     }
     
     // MARK: - Actions
     
     @IBAction private func didTapSendButton() {
         guard let text = messageTextField.text,
-            let receiver = model.conversation.interlocutor?.userId, !text.isEmpty else { return }
+              let receiver = model.conversation.interlocutor?.userId, !text.isEmpty else { return }
         
         model.communicationService.communicator.sendMessage(text: text, to: receiver) { [weak self] success, error in
             if success {                
@@ -120,6 +105,42 @@ class ConversationViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self as? UITableViewDelegate
         tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: nil)
+    }
+    
+    private func configureDataProvider() {
+        guard let id = model.conversation.conversationId else { return }
+        
+        model.dataProvider = MessagesDataProvider(delegate: tableView, fetchRequest: model.frcService.messagesInConversation(with: id), context: model.frcService.saveContext)
+    }
+    
+    private func configureControls() {
+        /* Содержимое messageTextField просматривается
+         * для изменения состояния sendButton */
+        messageTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        if let count = model.conversation.messages?.count, count > 0 {
+            // Скроллинг до последнего сообщения после загрузки данных
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
+    }
+    
+    private func turnMessagePanel(on: Bool) {
+        /* Меняет доступность ввода сообщения и отправки в зависимости
+         * от онлайна другого юзера */
+        DispatchQueue.main.async {
+            if on {
+                self.textFieldDidChange(self.messageTextField)
+                self.messageTextField.isEnabled = true
+            } else  {
+                self.sendButton.isEnabled = false
+                self.messageTextField.isEnabled = false
+            }
+        }
     }
     
 }
@@ -163,26 +184,6 @@ extension ConversationViewController: UITableViewDataSource {
         }
         
         return cell ?? UITableViewCell()
-    }
-    
-}
-
-// MARK: - IConversationControlsDelegate
-
-extension ConversationViewController {
-    
-    func turnMessagePanelOn() {
-        DispatchQueue.main.async {
-            self.textFieldDidChange(self.messageTextField)
-            self.messageTextField.isEnabled = true
-        }
-    }
-    
-    func turnMessagePanelOff() {
-        DispatchQueue.main.async {
-            self.sendButton.isEnabled = false
-            self.messageTextField.isEnabled = false
-        }
     }
     
 }
