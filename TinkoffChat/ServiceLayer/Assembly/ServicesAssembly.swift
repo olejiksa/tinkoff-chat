@@ -11,6 +11,7 @@ protocol IServicesAssembly {
     var themesService: IThemesService { get }
     var frcService: FRCService { get }
     var keyboardService: IKeyboardService { get }
+    var permissionsService: IPermissionsService { get }
 }
 
 class ServicesAssembly: IServicesAssembly {
@@ -25,5 +26,6 @@ class ServicesAssembly: IServicesAssembly {
     lazy var themesService: IThemesService = ThemesService(themesManager: coreAssembly.themesManager)
     lazy var frcService: FRCService = FRCService(backdoor: coreAssembly.coreDataBackdoor)
     lazy var keyboardService: IKeyboardService = KeyboardService()
+    lazy var permissionsService: IPermissionsService = PermissionsService()
     
 }

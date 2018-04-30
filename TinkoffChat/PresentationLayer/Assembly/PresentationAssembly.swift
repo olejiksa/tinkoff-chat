@@ -54,8 +54,7 @@ class PresentationAssembly: IPresentationAssembly {
     }
     
     private func profileModel() -> IAppUserModel {
-        return ProfileModel(dataService: CoreDataManager(),
-                            keyboardService: servicesAssembly.keyboardService)
+        return ProfileModel(dataService: CoreDataManager(), keyboardService: servicesAssembly.keyboardService, permissionsService: servicesAssembly.permissionsService)
     }
     
     // MARK: - ThemesViewController

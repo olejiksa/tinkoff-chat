@@ -14,7 +14,7 @@ protocol IAppUser {
     var picture: UIImage? { get set }
 }
 
-protocol IAppUserModel: IAppUser, IKeyboardModel {
+protocol IAppUserModel: IAppUser, IKeyboardModel, IPermissionsModel {
     func set(on profile: IAppUser)
     
     func load(_ completion: @escaping (IAppUser?) -> ())
@@ -41,11 +41,13 @@ class ProfileModel: IAppUserModel {
     
     private let dataService: IDataManager
     private var keyboardService: IKeyboardService
+    private var permissionsService: IPermissionsService
     
-    init(dataService: IDataManager, keyboardService: IKeyboardService,
+    init(dataService: IDataManager, keyboardService: IKeyboardService, permissionsService: IPermissionsService,
          name: String? = nil, about: String? = nil, picture: UIImage? = nil) {
         self.dataService = dataService
         self.keyboardService = keyboardService
+        self.permissionsService = permissionsService
         
         self.name = name
         self.about = about
@@ -76,6 +78,20 @@ class ProfileModel: IAppUserModel {
     
     func turnKeyboard(on: Bool) {
         keyboardService.turnKeyboard(on: on)
+    }
+    
+    // MARK: - IPermissionsService
+    
+    func setPermissionsDelegate(_ delegate: IPermissionsDelegate?) {
+        permissionsService.delegate = delegate
+    }
+    
+    func makeAction(_ sourceType: UIImagePickerControllerSourceType, appeal: String) {
+        permissionsService.makeAction(sourceType, appeal: appeal)
+    }
+    
+    func authorize(using sourceType: UIImagePickerControllerSourceType) {
+        permissionsService.authorize(using: sourceType)
     }
     
 }

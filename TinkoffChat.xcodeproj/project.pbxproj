@@ -21,6 +21,7 @@
 		EB55B0552063B209006A7178 /* UserDefaults+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB55B0542063B209006A7178 /* UserDefaults+UIColor.swift */; };
 		EB6E022F2096740E00EE439D /* AppUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E022E2096740E00EE439D /* AppUserService.swift */; };
 		EB6E02322096755500EE439D /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E02312096755500EE439D /* KeyboardService.swift */; };
+		EB6E02352096A31100EE439D /* PermissionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E02342096A31100EE439D /* PermissionsService.swift */; };
 		EB7027612061A0FC004BB040 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027602061A0FC004BB040 /* UIColor+RGB.swift */; };
 		EB7027642061BE0D004BB040 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027632061BE0D004BB040 /* ThemesViewController.swift */; };
 		EBBC25C82083A08600F4982C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC25C72083A08600F4982C /* CoreDataManager.swift */; };
@@ -72,6 +73,7 @@
 		EB55B0542063B209006A7178 /* UserDefaults+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UIColor.swift"; sourceTree = "<group>"; };
 		EB6E022E2096740E00EE439D /* AppUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserService.swift; sourceTree = "<group>"; };
 		EB6E02312096755500EE439D /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
+		EB6E02342096A31100EE439D /* PermissionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsService.swift; sourceTree = "<group>"; };
 		EB7027602061A0FC004BB040 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		EB7027632061BE0D004BB040 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		EBBC25C72083A08600F4982C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -155,6 +157,14 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
+		EB6E02332096A21200EE439D /* Permissions */ = {
+			isa = PBXGroup;
+			children = (
+				EB6E02342096A31100EE439D /* PermissionsService.swift */,
+			);
+			path = Permissions;
+			sourceTree = "<group>";
+		};
 		EB7027622061A263004BB040 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +203,7 @@
 				EBF0F025208B64D800287352 /* Assembly */,
 				EBF0F0612091D7F000287352 /* Data */,
 				EB6E02302096753C00EE439D /* Keyboard */,
+				EB6E02332096A21200EE439D /* Permissions */,
 				EBF0F059208F7E0400287352 /* Themes */,
 			);
 			path = ServiceLayer;
@@ -464,6 +475,7 @@
 				EBF0F03A208B9C3600287352 /* ConversationsListModel.swift in Sources */,
 				EBF0F06020915FCD00287352 /* ConversationsDataProvider.swift in Sources */,
 				EB29C7172054563A0034D6D8 /* ConversationViewController.swift in Sources */,
+				EB6E02352096A31100EE439D /* PermissionsService.swift in Sources */,
 				EB36979D203DD3620065EC99 /* ProfileViewController.swift in Sources */,
 				EB55B0552063B209006A7178 /* UserDefaults+UIColor.swift in Sources */,
 				EB27ED9020796B6500722846 /* CoreDataStack.swift in Sources */,
