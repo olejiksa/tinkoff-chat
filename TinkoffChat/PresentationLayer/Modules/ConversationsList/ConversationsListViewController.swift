@@ -18,15 +18,12 @@ class ConversationsListViewController: UIViewController {
     
     private var model: IConversationsListModel
     private let presentationAssembly: IPresentationAssembly
-    private let servicesAssembly: IServicesAssembly
     
     // MARK: - Initializers
     
-    init(model: IConversationsListModel, presentationAssembly: IPresentationAssembly,
-         servicesAssembly: IServicesAssembly) {
+    init(model: IConversationsListModel, presentationAssembly: IPresentationAssembly) {
         self.model = model
         self.presentationAssembly = presentationAssembly
-        self.servicesAssembly = servicesAssembly
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -165,7 +162,7 @@ extension ConversationsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let conversation = model.dataProvider?.fetchedResultsController.object(at: indexPath)
               else { return }
-        let controller = presentationAssembly.conversationViewController(model: ConversationModel(communicationService: model.communicationService, frcService: model.frcService, keyboardService: servicesAssembly.keyboardService, conversation: conversation))
+        let controller = presentationAssembly.conversationViewController(model: presentationAssembly.conversationModel(model: model, conversation: conversation))
 
         controller.navigationItem.title = conversation.interlocutor?.name
         navigationController?.pushViewController(controller, animated: true)

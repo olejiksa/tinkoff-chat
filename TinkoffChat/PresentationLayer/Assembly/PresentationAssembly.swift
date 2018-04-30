@@ -10,6 +10,7 @@ import UIKit
 
 protocol IPresentationAssembly {
     func conversationViewController(model: ConversationModel) -> ConversationViewController
+    func conversationModel(model: IConversationsListModel, conversation: Conversation) -> ConversationModel
     func conversationsListViewController() -> ConversationsListViewController
     func profileViewController() -> ProfileViewController
     func themesViewController(_ closure: @escaping Colorization) -> ThemesViewController
@@ -29,12 +30,15 @@ class PresentationAssembly: IPresentationAssembly {
         return ConversationViewController(model: model)
     }
     
+    func conversationModel(model: IConversationsListModel, conversation: Conversation) -> ConversationModel {
+        return ConversationModel(communicationService: model.communicationService, frcService: model.frcService, keyboardService: servicesAssembly.keyboardService, conversation: conversation)
+    }
+    
     // MARK: - ConversationsListViewController
     
     func conversationsListViewController() -> ConversationsListViewController {
         return ConversationsListViewController(model: conversationsListModel(),
-                                               presentationAssembly: self,
-                                               servicesAssembly: servicesAssembly)
+                                               presentationAssembly: self)
     }
     
     private func conversationsListModel() -> IConversationsListModel {
