@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Message: MessageCellConfiguration {
+extension Message: IMessageCellConfiguration {
     
     @nonobjc class func generateMessageId() -> String {
         return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)"

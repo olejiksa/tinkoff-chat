@@ -9,7 +9,6 @@
 import CoreData
 
 protocol ICoreDataStack {
-    
     var managedObjectModel: NSManagedObjectModel { get }
     
     var mainContext: NSManagedObjectContext { get }

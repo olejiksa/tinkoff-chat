@@ -9,11 +9,11 @@
 import UIKit
 
 protocol IPresentationAssembly {
-    func conversationViewController(model: ConversationModel) -> ConversationViewController
-    func conversationModel(model: IConversationsListModel, conversation: Conversation) -> ConversationModel
+    func conversationViewController(model: IConversationsListModel, conversation: Conversation) -> ConversationViewController
     func conversationsListViewController() -> ConversationsListViewController
     func profileViewController() -> ProfileViewController
     func themesViewController(_ closure: @escaping Colorization) -> ThemesViewController
+    func picturesViewController() -> PicturesViewController
 }
 
 class PresentationAssembly: IPresentationAssembly {
@@ -26,32 +26,25 @@ class PresentationAssembly: IPresentationAssembly {
     
     // MARK: - ConversationViewController
     
-    func conversationViewController(model: ConversationModel) -> ConversationViewController {
-        return ConversationViewController(model: model)
-    }
-    
-    func conversationModel(model: IConversationsListModel, conversation: Conversation) -> ConversationModel {
+    func conversationViewController(model: IConversationsListModel, conversation: Conversation) -> ConversationViewController {
         let pair = model.linkedServices()
-        return ConversationModel(communicationService: pair.0, frcService: pair.1, keyboardService: servicesAssembly.keyboardService, conversation: conversation)
+        return ConversationViewController(model: ConversationModel(communicationService: pair.0, frcService: pair.1, keyboardService: servicesAssembly.keyboardService, conversation: conversation))
     }
     
     // MARK: - ConversationsListViewController
     
     func conversationsListViewController() -> ConversationsListViewController {
-        return ConversationsListViewController(model: conversationsListModel(),
-                                               presentationAssembly: self)
+        return ConversationsListViewController(model: conversationsListModel(), presentationAssembly: self)
     }
     
     private func conversationsListModel() -> IConversationsListModel {
-        return ConversationsListModel(communicationService: servicesAssembly.communicationService,
-                                      themesService: servicesAssembly.themesService,
-                                      frcService: servicesAssembly.frcService)
+        return ConversationsListModel(communicationService: servicesAssembly.communicationService, themesService: servicesAssembly.themesService, frcService: servicesAssembly.frcService)
     }
     
     // MARK: - ProfileViewController
     
     func profileViewController() -> ProfileViewController {
-        return ProfileViewController(model: profileModel())
+        return ProfileViewController(model: profileModel(), presentationAssembly: self)
     }
     
     private func profileModel() -> IAppUserModel {
@@ -66,6 +59,16 @@ class PresentationAssembly: IPresentationAssembly {
     
     private func themesModel(_ closure: @escaping Colorization) -> IThemesModel {
         return ThemesModel(theme1: #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), theme2: #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1), theme3: #colorLiteral(red: 1, green: 0.9572783113, blue: 0.3921568627, alpha: 1), closure: closure)
+    }
+    
+    // MARK: - PicturesViewController
+    
+    func picturesViewController() -> PicturesViewController {
+        return PicturesViewController(model: picturesModel())
+    }
+    
+    private func picturesModel() -> IPicturesModel {
+        return PicturesModel(picturesService: servicesAssembly.picturesService)
     }
     
 }

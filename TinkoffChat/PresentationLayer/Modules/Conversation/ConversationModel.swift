@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum SendMessageResult {
+    case success
+    case error(String?)
+}
+
 protocol IConversationModel: IKeyboardModel {
     var conversation: Conversation { get set }
     var dataProvider: MessagesDataProvider? { get set }
@@ -15,6 +20,9 @@ protocol IConversationModel: IKeyboardModel {
     var frcService: IFRCService { get set }
     
     func makeRead()
+    func setKeyboardDelegate(_ delegate: UIView?)
+    func turnKeyboard(on: Bool)
+    func sendMessage(text: String, receiver: String, completionHandler: (SendMessageResult) -> ())
 }
 
 class ConversationModel: IConversationModel {
@@ -52,11 +60,6 @@ class ConversationModel: IConversationModel {
     }
     
     // MARK: - ICommunicatorDelegate
-    
-    enum SendMessageResult {
-        case success
-        case error(String?)
-    }
     
     func sendMessage(text: String, receiver: String, completionHandler: (SendMessageResult) -> ()) {
         communicationService.communicator.sendMessage(text: text, to: receiver) { success, error in

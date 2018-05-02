@@ -69,8 +69,8 @@ class ConversationsListViewController: UIViewController {
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "ConversationCell", bundle: nil),
-                           forCellReuseIdentifier: "ConversationCell")
+        tableView.register(UINib(nibName: "\(ConversationCell.self)", bundle: nil),
+                           forCellReuseIdentifier: "\(ConversationCell.self)")
     }
     
     private func configureData() {
@@ -127,7 +127,7 @@ extension ConversationsListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "ConversationCell"
+        let identifier = "\(ConversationCell.self)"
         var cell: ConversationCell
         
         if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: identifier) as? ConversationCell {
@@ -163,7 +163,7 @@ extension ConversationsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let conversation = model.dataProvider?.fetchedResultsController.object(at: indexPath)
               else { return }
-        let controller = presentationAssembly.conversationViewController(model: presentationAssembly.conversationModel(model: model, conversation: conversation))
+        let controller = presentationAssembly.conversationViewController(model: model, conversation: conversation)
 
         controller.navigationItem.title = conversation.interlocutor?.name
         navigationController?.pushViewController(controller, animated: true)

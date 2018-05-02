@@ -12,6 +12,7 @@ protocol IServicesAssembly {
     var frcService: IFRCService { get }
     var keyboardService: IKeyboardService { get }
     var permissionsService: IPermissionsService { get }
+    var picturesService: IPicturesService { get }
 }
 
 class ServicesAssembly: IServicesAssembly {
@@ -27,5 +28,6 @@ class ServicesAssembly: IServicesAssembly {
     lazy var frcService: IFRCService = FRCService(backdoor: coreAssembly.coreDataBackdoor)
     lazy var keyboardService: IKeyboardService = KeyboardService()
     lazy var permissionsService: IPermissionsService = PermissionsService()
+    lazy var picturesService: IPicturesService = PicturesService(requestSender: coreAssembly.requestSender)
     
 }

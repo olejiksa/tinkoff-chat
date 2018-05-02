@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    // MARK: - IBOutlets
+    // MARK: - Outlets
     
     @IBOutlet private weak var saveButton: UIButton!
     @IBOutlet private weak var progressRing: UIActivityIndicatorView!
@@ -54,6 +54,7 @@ class ProfileViewController: UIViewController {
     // MARK: - Dependencies
     
     private var model: IAppUserModel
+    private let presentationAssembly: IPresentationAssembly
     
     // MARK: - Properties
     
@@ -65,8 +66,9 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Initializers
     
-    init(model: IAppUserModel) {
+    init(model: IAppUserModel, presentationAssembly: IPresentationAssembly) {
         self.model = model
+        self.presentationAssembly = presentationAssembly
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -126,7 +128,7 @@ class ProfileViewController: UIViewController {
         model.setKeyboardDelegate(nil)
     }
     
-    // MARK: - IBActions
+    // MARK: - Actions
     
     @IBAction private func didEditButtonTap() {
         isEdit(on: true)
@@ -176,12 +178,20 @@ class ProfileViewController: UIViewController {
         view.endEditing(true)
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Установить из галереи", style: .default, handler: { _ in
-            self.model.makeAction(.photoLibrary, appeal: "галерее")
-        }))
         actionSheet.addAction(UIAlertAction(title: "Сделать фото", style: .default, handler: { _ in
-            self.model.makeAction(.camera, appeal: "камере")
+            self.model.makeAction(.camera, appeal: "камере") }))
+        actionSheet.addAction(UIAlertAction(title: "Выбрать из галереи", style: .default, handler: { _ in
+            self.model.makeAction(.photoLibrary, appeal: "галерее") }))
+        actionSheet.addAction(UIAlertAction(title: "Загрузить из сети", style: .default, handler: { _ in
+            let controller = self.presentationAssembly.picturesViewController()
+            controller.collectionPickerDelegate = self
+            
+            let navigationController = UINavigationController()
+            navigationController.viewControllers = [controller]
+            
+            self.present(navigationController, animated: true)
         }))
+        
         actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel))
         
         present(actionSheet, animated: true)
@@ -237,7 +247,7 @@ class ProfileViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    // MARK: - Others
+    // MARK: - Other
     
     private func setDelegates() {
         aboutTextView.delegate = self
@@ -246,6 +256,8 @@ class ProfileViewController: UIViewController {
     }
     
 }
+
+// MARK: - IPermissionsDelegate
 
 extension ProfileViewController: IPermissionsDelegate {
     
@@ -293,6 +305,18 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
+    }
+    
+}
+
+// MARK: - IPicturesViewControllerDelegate
+
+extension ProfileViewController: IPicturesViewControllerDelegate {
+    
+    func collectionPickerController(_ picker: ICollectionPickerController, didFinishPickingImage image: UIImage) {
+        userPictureImageView.image = image
+        makeButtons(saveButton, active: changesToSave)
+        picker.close()
     }
     
 }

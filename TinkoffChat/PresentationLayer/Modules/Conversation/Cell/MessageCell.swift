@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol MessageCellConfiguration {
+protocol IMessageCellConfiguration {
     var messageText: String? { get set }
     var isIncoming: Bool { get set }
     var date: Date? { get set }
 }
 
-class MessageCell: UITableViewCell, MessageCellConfiguration {
+class MessageCell: UITableViewCell, IMessageCellConfiguration {
     
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
