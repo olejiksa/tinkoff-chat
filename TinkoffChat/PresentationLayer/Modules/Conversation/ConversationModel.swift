@@ -39,6 +39,7 @@ class ConversationModel: IConversationModel {
          keyboardService: IKeyboardService,
          conversation: Conversation) {
         self.communicationService = communicationService
+        
         self.keyboardService = keyboardService
         self.conversation = conversation
         self.frcService = frcService
@@ -69,6 +70,12 @@ class ConversationModel: IConversationModel {
                 completionHandler(.error(error?.localizedDescription))
             }
         }
+    }
+    
+    // MARK: - IOnlineObserver
+    
+    func setOnlineObserver(_ observer: IOnlineObserver) {
+        self.communicationService.onlineObserver = observer
     }
     
 }

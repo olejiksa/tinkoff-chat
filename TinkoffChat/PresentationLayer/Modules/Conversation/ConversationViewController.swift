@@ -128,20 +128,8 @@ class ConversationViewController: UIViewController {
             // Скроллинг до последнего сообщения после загрузки данных
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
-    }
-    
-    private func turnMessagePanel(on: Bool) {
-        /* Меняет доступность ввода сообщения и отправки в зависимости
-         * от онлайна другого юзера */
-        DispatchQueue.main.async {
-            if on {
-                self.textFieldDidChange(self.messageTextField)
-                self.messageTextField.isEnabled = true
-            } else  {
-                self.sendButton.isEnabled = false
-                self.messageTextField.isEnabled = false
-            }
-        }
+        
+        model.setOnlineObserver(self)
     }
     
 }
@@ -185,6 +173,24 @@ extension ConversationViewController: UITableViewDataSource {
         }
         
         return cell ?? UITableViewCell()
+    }
+    
+}
+
+// MARK: - IOnlineObserver
+
+extension ConversationViewController: IOnlineObserver {
+    
+    func turnMessagePanel(on: Bool) {
+        /* Меняет доступность ввода сообщения и отправки в зависимости
+         * от онлайна другого юзера */
+        if on {
+            textFieldDidChange(messageTextField)
+            messageTextField.isEnabled = true
+        } else  {
+            sendButton.isEnabled = false
+            messageTextField.isEnabled = false
+        }
     }
     
 }

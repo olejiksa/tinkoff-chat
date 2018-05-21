@@ -6,8 +6,13 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
+protocol IOnlineObserver {
+    func turnMessagePanel(on: Bool)
+}
+
 protocol ICommunicatorDelegate: class {
     var communicator: ICommunicator { get }
+    var onlineObserver: IOnlineObserver? { get set }
     
     // discovering
     func didFindUser(id: String, name: String)
@@ -28,6 +33,7 @@ class CommunicationService: ICommunicatorDelegate {
     
     private let dataManager: IDataManager
     var communicator: ICommunicator
+    var onlineObserver: IOnlineObserver?
         
     init(dataManager: IDataManager, communicator: ICommunicator) {
         self.dataManager = dataManager
@@ -37,10 +43,12 @@ class CommunicationService: ICommunicatorDelegate {
     }
     
     func didFindUser(id: String, name: String) {
+        onlineObserver?.turnMessagePanel(on: true)
         dataManager.appendConversation(id: id, userName: name)
     }
     
     func didLoseUser(id: String) {
+        onlineObserver?.turnMessagePanel(on: false)
         dataManager.makeConversationOffline(id: id)
     }
     

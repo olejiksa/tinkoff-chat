@@ -459,9 +459,9 @@
 			children = (
 				EBF0F034208B99FB00287352 /* Operations */,
 				EBBCDB782087657C0095184A /* CommunicationService.swift */,
+				EBF0F064209227E500287352 /* FRCService.swift */,
 				EBFDEE18206DAA08004008C1 /* GCDAppUserService.swift */,
 				EBFDEE26206DEE79004008C1 /* OperationAppUserService.swift */,
-				EBF0F064209227E500287352 /* FRCService.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
