@@ -19,7 +19,6 @@ class ConversationViewController: UIViewController {
     init(model: ConversationModel) {
         self.model = model
         titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,7 +37,7 @@ class ConversationViewController: UIViewController {
     @IBOutlet private weak var messageTextField: UITextField!
     @IBOutlet private weak var sendButton: UIButton!
     
-    private var titleLabel: UILabel
+    private var titleLabel: UILabel!
     
     // MARK: - UIViewController
     
@@ -55,7 +54,6 @@ class ConversationViewController: UIViewController {
         
         model.setKeyboardDelegate(view)
         model.turnKeyboard(on: true)
-        
         configureNavigationBar()
     }
     

@@ -46,11 +46,13 @@ class PicturesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         configureCollectionView()
         configureNavigationPane()
     }

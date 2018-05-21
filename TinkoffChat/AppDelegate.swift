@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     private let rootAssembly = RootAssembly()
+    private var emitter: Emitter!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationController = UINavigationController()
         navigationController.viewControllers = [controller]
+
+        emitter = Emitter(view: navigationController.view)
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

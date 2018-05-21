@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet private weak var saveButton: UIButton!
     @IBOutlet private weak var progressRing: UIActivityIndicatorView!
     @IBOutlet private weak var editButton: UIButton!
+    private var emitter: Emitter!
     
     @IBOutlet private weak var userPictureImageView: UIImageView! {
         didSet {
@@ -188,6 +189,8 @@ class ProfileViewController: UIViewController {
             
             let navigationController = UINavigationController()
             navigationController.viewControllers = [controller]
+            
+            self.emitter = Emitter(view: navigationController.view)
             
             self.present(navigationController, animated: true)
         }))

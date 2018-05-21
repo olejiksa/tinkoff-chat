@@ -32,6 +32,7 @@
 		EB3697A2203DD3620065EC99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB3697A1203DD3620065EC99 /* Assets.xcassets */; };
 		EB3697A5203DD3620065EC99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */; };
 		EB55B0552063B209006A7178 /* UserDefaults+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB55B0542063B209006A7178 /* UserDefaults+UIColor.swift */; };
+		EB63D60820B3556800D9396F /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB63D60720B3556800D9396F /* Emitter.swift */; };
 		EB6E02322096755500EE439D /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E02312096755500EE439D /* KeyboardService.swift */; };
 		EB6E02352096A31100EE439D /* PermissionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E02342096A31100EE439D /* PermissionsService.swift */; };
 		EB7027612061A0FC004BB040 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027602061A0FC004BB040 /* UIColor+RGB.swift */; };
@@ -96,6 +97,7 @@
 		EB3697A4203DD3620065EC99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB3697A6203DD3620065EC99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB55B0542063B209006A7178 /* UserDefaults+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UIColor.swift"; sourceTree = "<group>"; };
+		EB63D60720B3556800D9396F /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		EB6E02312096755500EE439D /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
 		EB6E02342096A31100EE439D /* PermissionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsService.swift; sourceTree = "<group>"; };
 		EB7027602061A0FC004BB040 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
@@ -231,6 +233,14 @@
 			path = TinkoffChat;
 			sourceTree = "<group>";
 		};
+		EB63D60620B3554700D9396F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				EB63D60720B3556800D9396F /* Emitter.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		EB6E02302096753C00EE439D /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				EBF0F026208B64DD00287352 /* Assembly */,
+				EB63D60620B3554700D9396F /* Common */,
 				EBF0F035208B9B0F00287352 /* Modules */,
 			);
 			path = PresentationLayer;
@@ -576,6 +587,7 @@
 				EBF0F065209227E500287352 /* FRCService.swift in Sources */,
 				EB25773720977523002AACA7 /* RequestSender.swift in Sources */,
 				EBF0F05B208F7E1300287352 /* ThemesService.swift in Sources */,
+				EB63D60820B3556800D9396F /* Emitter.swift in Sources */,
 				EBBCDB7F208765800095184A /* MultipeerCommunicator.swift in Sources */,
 				EB36979B203DD3620065EC99 /* AppDelegate.swift in Sources */,
 				EB6E02322096755500EE439D /* KeyboardService.swift in Sources */,

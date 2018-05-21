@@ -13,6 +13,7 @@ class ConversationsListViewController: UIViewController {
     // MARK: - IBOutlets
     
     @IBOutlet private weak var tableView: UITableView!
+    private var emitter: Emitter!
     
     // MARK: - Dependencies
     
@@ -33,7 +34,7 @@ class ConversationsListViewController: UIViewController {
     }
     
     // MARK: - UIViewController
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +44,8 @@ class ConversationsListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         configureNavigationPane()
     }
     
@@ -88,6 +91,8 @@ class ConversationsListViewController: UIViewController {
         let navigationController = UINavigationController()
         navigationController.viewControllers = [controller]
         
+        emitter = Emitter(view: navigationController.view)
+        
         present(navigationController, animated: true)
     }
     
@@ -96,6 +101,8 @@ class ConversationsListViewController: UIViewController {
         
         let navigationController = UINavigationController()
         navigationController.viewControllers = [controller]
+        
+        emitter = Emitter(view: navigationController.view)
         
         present(navigationController, animated: true)
     }
