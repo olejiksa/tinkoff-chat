@@ -18,6 +18,8 @@ class ConversationViewController: UIViewController {
     
     init(model: ConversationModel) {
         self.model = model
+        titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,6 +38,8 @@ class ConversationViewController: UIViewController {
     @IBOutlet private weak var messageTextField: UITextField!
     @IBOutlet private weak var sendButton: UIButton!
     
+    private var titleLabel: UILabel
+    
     // MARK: - UIViewController
     
     override func viewDidLoad() {
@@ -53,6 +57,11 @@ class ConversationViewController: UIViewController {
         model.turnKeyboard(on: true)
         
         configureNavigationBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         turnMessagePanel(on: model.conversation.isOnline)
     }
     
@@ -74,7 +83,7 @@ class ConversationViewController: UIViewController {
             switch result {
             case .success:
                 self?.messageTextField.text = nil
-                self?.sendButton.isEnabled = false
+                self?.turnButtonWithAnimation(sendButton, on: false)
             case .error(let text):
                 let alert = UIAlertController(title: "Ошибка",
                                               message: text,
@@ -88,9 +97,9 @@ class ConversationViewController: UIViewController {
     @objc private func textFieldDidChange(_ textField: UITextField) {
         if textField == messageTextField {
             if let text = messageTextField.text, !text.trimmingCharacters(in: .whitespaces).isEmpty {
-                sendButton.isEnabled = true
+                turnButtonWithAnimation(sendButton, on: true)
             } else {
-                sendButton.isEnabled = false
+                turnButtonWithAnimation(sendButton, on: false)
             }
         }
     }
@@ -130,6 +139,49 @@ class ConversationViewController: UIViewController {
         }
         
         model.setOnlineObserver(self)
+        
+        titleLabel.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        titleLabel.textAlignment = .center
+        titleLabel.text = model.conversation.interlocutor?.name
+        
+        navigationItem.titleView = titleLabel
+    }
+    
+    private func turnButtonWithAnimation(_ button: UIButton, on: Bool) {
+        guard button.isEnabled != on else {
+            // Состояние кнопки не изменилось,
+            // дабы не анимировать один и тот же цвет - ничего не делаем
+            return
+        }
+        
+        let color = on ? #colorLiteral(red: 0.1058823529, green: 0.6784313725, blue: 0.9725490196, alpha: 1) : #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            button.isEnabled = on
+            button.setTitleColor(color, for: .normal)
+            button.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+        }) { _ in
+            UIView.animate(withDuration: 0.5, animations: {
+                button.transform = CGAffineTransform(scaleX: 1, y: 1)
+            })
+        }
+    }
+    
+    private func turnLabelWithAnimation(_ label: UILabel, on: Bool) {
+        let color = on ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let scaling: CGFloat = on ? 1.1 : 1
+        
+        guard label.textColor != color else {
+            // Состояние надписи не изменилось,
+            // дабы не анимировать один и тот же цвет - ничего не делаем
+            return
+        }
+        
+        UIView.animate(withDuration: 1, animations: {
+            label.textColor = color
+            label.transform = CGAffineTransform(scaleX: scaling, y: scaling)
+        })
     }
     
 }
@@ -185,11 +237,13 @@ extension ConversationViewController: IOnlineObserver {
         /* Меняет доступность ввода сообщения и отправки в зависимости
          * от онлайна другого юзера */
         if on {
-            textFieldDidChange(messageTextField)
             messageTextField.isEnabled = true
-        } else  {
-            sendButton.isEnabled = false
+            textFieldDidChange(messageTextField)
+            turnLabelWithAnimation(titleLabel, on: true)
+        } else {
             messageTextField.isEnabled = false
+            turnLabelWithAnimation(titleLabel, on: false)
+            turnButtonWithAnimation(sendButton, on: false)
         }
     }
     

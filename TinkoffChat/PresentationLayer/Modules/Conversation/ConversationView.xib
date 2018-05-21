@@ -30,7 +30,9 @@
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GvZ-pE-Hd2">
                     <rect key="frame" x="331" y="629" width="36" height="30"/>
-                    <state key="normal" title="Send"/>
+                    <state key="normal" title="Send">
+                        <color key="titleColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                    </state>
                     <connections>
                         <action selector="didTapSendButton" destination="-1" eventType="touchUpInside" id="tYz-RP-QW1"/>
                     </connections>
