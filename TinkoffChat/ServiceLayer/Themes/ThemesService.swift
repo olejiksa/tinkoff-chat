@@ -48,7 +48,12 @@ class ThemesService: IThemesService {
     }
     
     func invert(_ theme: UIColor, completion: ((Bool) -> ())?) {
-        // Not yet implemented...
+        let inverted = theme.invertedColor
+        
+        themesManager.apply(theme.invertedColor, save: false) {
+            self.current = inverted
+            completion?(theme.isLight != inverted.isLight)
+        }
     }
     
 }

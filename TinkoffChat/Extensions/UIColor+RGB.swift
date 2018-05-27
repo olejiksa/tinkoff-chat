@@ -16,7 +16,7 @@ extension UIColor {
         var fBlue: CGFloat = 0
         var fAlpha: CGFloat = 0
         
-        if self.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha) {
+        if getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha) {
             let iRed = Int(fRed * 255.0)
             let iGreen = Int(fGreen * 255.0)
             let iBlue = Int(fBlue * 255.0)
@@ -32,6 +32,13 @@ extension UIColor {
         var white: CGFloat = 0
         getWhite(&white, alpha: nil)
         return white > 0.5
+    }
+    
+    var invertedColor: UIColor {
+        var r: CGFloat = 0.0, g: CGFloat = 0.0, b: CGFloat = 0.0, a: CGFloat = 0.0
+        UIColor.red.getRed(&r, green: &g, blue: &b, alpha: &a)
+        
+        return UIColor(red: (1 - r), green: (1 - g), blue: (1 - b), alpha: a)
     }
     
 }
