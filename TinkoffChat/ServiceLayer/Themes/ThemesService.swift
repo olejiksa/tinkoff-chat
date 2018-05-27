@@ -13,6 +13,7 @@ protocol IThemesService: class {
     
     func load(completion: (() -> ())?)
     func save(_ theme: UIColor, completion: (() -> ())?)
+    func invert(_ theme: UIColor, completion: ((Bool) -> ())?)
 }
 
 class ThemesService: IThemesService {
@@ -44,6 +45,10 @@ class ThemesService: IThemesService {
             self.current = theme
             completion?()
         }
+    }
+    
+    func invert(_ theme: UIColor, completion: ((Bool) -> ())?) {
+        // Not yet implemented...
     }
     
 }
