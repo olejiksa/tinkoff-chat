@@ -88,6 +88,34 @@ class ThemesServiceTests: XCTestCase {
         }
     }
     
+    func testThat_invertedLightnessIsNotSame() {
+        // given
+        let significance = 0.10
+        var commonCounter = 0
+        var positiveCounter = 0
+        
+        for color in themes {
+            let promise = expectation(description: "Theme is saved")
+            
+            // when
+            themesService.invert(color) { invertable in
+                promise.fulfill()
+                
+                commonCounter += 1
+                if !invertable {
+                    positiveCounter += 1
+                }
+            }
+            
+            wait(for: [promise], timeout: 2)
+        }
+        
+        let probability = Double(positiveCounter / commonCounter)
+            
+        // then
+        XCTAssertLessThanOrEqual(probability, significance)
+    }
+    
     // MARK: - Auxiliary methods
     
     private func random(_ range: Range<Int>) -> Int {
@@ -97,8 +125,10 @@ class ThemesServiceTests: XCTestCase {
     }
     
     private func loadAndSave(_ theme: UIColor) {
-        // when
         let promiseForSave = expectation(description: "Theme is saved")
+        let promiseForLoad = expectation(description: "Theme is loaded")
+
+        // when
         themesService.save(theme) {
             promiseForSave.fulfill()
             self.themesService.current = nil // reset after save
@@ -106,7 +136,6 @@ class ThemesServiceTests: XCTestCase {
         
         wait(for: [promiseForSave], timeout: 5)
         
-        let promiseForLoad = expectation(description: "Theme is loaded")
         themesService.load() { // load saved theme
             promiseForLoad.fulfill()
             
@@ -123,8 +152,9 @@ class ThemesServiceTests: XCTestCase {
     }
     
     private func save(_ theme: UIColor) {
-        // when
         let promise = expectation(description: "Theme is saved")
+        
+        // when
         themesService.save(theme) {
             promise.fulfill()
             
