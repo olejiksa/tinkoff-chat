@@ -8,11 +8,16 @@
 
 import UIKit
 
-class ThemesViewController: UIViewController {
+protocol ThemesSelector: class {
+    func didThemeButtonTap(_ sender: UIButton)
+}
+
+class ThemesViewController: UIViewController, ThemesSelector {
     
     // MARK: - Dependencies
     
     private let model: IThemesModel
+    var mock: ThemesSelector?
     
     // MARK: - Initializers
     
@@ -24,6 +29,10 @@ class ThemesViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Outlet
+    
+    @IBOutlet var buttonsWithTag: [UIButton]!
     
     // MARK: - UIViewController
     
@@ -42,9 +51,9 @@ class ThemesViewController: UIViewController {
         }
     }
     
-    // MARK: - Private methods
+    // MARK: - Action
     
-    @IBAction private func didThemeButtonTap(_ sender: UIButton) {
+    @IBAction func didThemeButtonTap(_ sender: UIButton) {
         switch sender.tag {
         case 1:
             model.closure(self, model.theme1)
@@ -55,7 +64,11 @@ class ThemesViewController: UIViewController {
         default:
             break
         }
+        
+        mock?.didThemeButtonTap(sender)
     }
+    
+    // MARK: - Private methods
     
     private func configureNavigationPane() {
         navigationItem.title = "Темы"
@@ -71,4 +84,9 @@ class ThemesViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    // MARK: - Deinitializers
+    
+    deinit {
+        buttonsWithTag = nil
+    }
 }

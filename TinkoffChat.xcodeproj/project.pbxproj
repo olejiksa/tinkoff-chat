@@ -33,6 +33,8 @@
 		EB3697A5203DD3620065EC99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */; };
 		EB55B0552063B209006A7178 /* UserDefaults+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB55B0542063B209006A7178 /* UserDefaults+UIColor.swift */; };
 		EB63D60820B3556800D9396F /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB63D60720B3556800D9396F /* Emitter.swift */; };
+		EB63D6A320B9DF3100D9396F /* ThemesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB63D6A220B9DF3100D9396F /* ThemesServiceTests.swift */; };
+		EB63D6AB20BB37E900D9396F /* ThemesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB63D6AA20BB37E900D9396F /* ThemesViewControllerTests.swift */; };
 		EB6E02322096755500EE439D /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E02312096755500EE439D /* KeyboardService.swift */; };
 		EB6E02352096A31100EE439D /* PermissionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E02342096A31100EE439D /* PermissionsService.swift */; };
 		EB7027612061A0FC004BB040 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7027602061A0FC004BB040 /* UIColor+RGB.swift */; };
@@ -69,6 +71,16 @@
 		EBFDEE2D206DF5AA004008C1 /* SaveOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFDEE2C206DF5AA004008C1 /* SaveOperation.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EB63D6A520B9DF3100D9396F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EB36978F203DD3620065EC99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EB369796203DD3620065EC99;
+			remoteInfo = TinkoffChat;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		EB04EBBD2099DF52004DE62E /* DownloadImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageRequest.swift; sourceTree = "<group>"; };
 		EB04EBBF2099E081004DE62E /* DownloadImageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageParser.swift; sourceTree = "<group>"; };
@@ -98,6 +110,10 @@
 		EB3697A6203DD3620065EC99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB55B0542063B209006A7178 /* UserDefaults+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+UIColor.swift"; sourceTree = "<group>"; };
 		EB63D60720B3556800D9396F /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
+		EB63D6A020B9DF3000D9396F /* TinkoffChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinkoffChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB63D6A220B9DF3100D9396F /* ThemesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesServiceTests.swift; sourceTree = "<group>"; };
+		EB63D6A420B9DF3100D9396F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB63D6AA20BB37E900D9396F /* ThemesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewControllerTests.swift; sourceTree = "<group>"; };
 		EB6E02312096755500EE439D /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
 		EB6E02342096A31100EE439D /* PermissionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsService.swift; sourceTree = "<group>"; };
 		EB7027602061A0FC004BB040 /* UIColor+RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
@@ -136,6 +152,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		EB369794203DD3620065EC99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB63D69D20B9DF3000D9396F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -207,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				EB369799203DD3620065EC99 /* TinkoffChat */,
+				EB63D6A120B9DF3100D9396F /* TinkoffChatTests */,
 				EB369798203DD3620065EC99 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -215,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				EB369797203DD3620065EC99 /* TinkoffChat.app */,
+				EB63D6A020B9DF3000D9396F /* TinkoffChatTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,6 +264,16 @@
 				EB63D60720B3556800D9396F /* Emitter.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		EB63D6A120B9DF3100D9396F /* TinkoffChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				EB63D6A220B9DF3100D9396F /* ThemesServiceTests.swift */,
+				EB63D6AA20BB37E900D9396F /* ThemesViewControllerTests.swift */,
+				EB63D6A420B9DF3100D9396F /* Info.plist */,
+			);
+			path = TinkoffChatTests;
 			sourceTree = "<group>";
 		};
 		EB6E02302096753C00EE439D /* Keyboard */ = {
@@ -497,13 +532,31 @@
 			productReference = EB369797203DD3620065EC99 /* TinkoffChat.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EB63D69F20B9DF3000D9396F /* TinkoffChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EB63D6A920B9DF3100D9396F /* Build configuration list for PBXNativeTarget "TinkoffChatTests" */;
+			buildPhases = (
+				EB63D69C20B9DF3000D9396F /* Sources */,
+				EB63D69D20B9DF3000D9396F /* Frameworks */,
+				EB63D69E20B9DF3000D9396F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EB63D6A620B9DF3100D9396F /* PBXTargetDependency */,
+			);
+			name = TinkoffChatTests;
+			productName = TinkoffChatTests;
+			productReference = EB63D6A020B9DF3000D9396F /* TinkoffChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		EB36978F203DD3620065EC99 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Oleg Samoylov";
 				TargetAttributes = {
@@ -511,6 +564,11 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+					};
+					EB63D69F20B9DF3000D9396F = {
+						CreatedOnToolsVersion = 9.3.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EB369796203DD3620065EC99;
 					};
 				};
 			};
@@ -528,6 +586,7 @@
 			projectRoot = "";
 			targets = (
 				EB369796203DD3620065EC99 /* TinkoffChat */,
+				EB63D69F20B9DF3000D9396F /* TinkoffChatTests */,
 			);
 		};
 /* End PBXProject section */
@@ -548,6 +607,13 @@
 				EBF0F047208DFF4300287352 /* OutcomingMessageCell.xib in Resources */,
 				EB3697A2203DD3620065EC99 /* Assets.xcassets in Resources */,
 				EBF0F03C208B9D9F00287352 /* ConversationCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EB63D69E20B9DF3000D9396F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,7 +676,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EB63D69C20B9DF3000D9396F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB63D6AB20BB37E900D9396F /* ThemesViewControllerTests.swift in Sources */,
+				EB63D6A320B9DF3100D9396F /* ThemesServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EB63D6A620B9DF3100D9396F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EB369796203DD3620065EC99 /* TinkoffChat */;
+			targetProxy = EB63D6A520B9DF3100D9396F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */ = {
@@ -679,7 +762,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "TinkoffChat/TinkoffChat-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -731,7 +814,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "TinkoffChat/TinkoffChat-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -774,6 +857,44 @@
 			};
 			name = Release;
 		};
+		EB63D6A720B9DF3100D9396F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B2FMGUSH44;
+				INFOPLIST_FILE = TinkoffChatTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.olejiksa.TinkoffChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TinkoffChat.app/TinkoffChat";
+			};
+			name = Debug;
+		};
+		EB63D6A820B9DF3100D9396F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B2FMGUSH44;
+				INFOPLIST_FILE = TinkoffChatTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.olejiksa.TinkoffChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TinkoffChat.app/TinkoffChat";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -791,6 +912,15 @@
 			buildConfigurations = (
 				EB3697AA203DD3620065EC99 /* Debug */,
 				EB3697AB203DD3620065EC99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EB63D6A920B9DF3100D9396F /* Build configuration list for PBXNativeTarget "TinkoffChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB63D6A720B9DF3100D9396F /* Debug */,
+				EB63D6A820B9DF3100D9396F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

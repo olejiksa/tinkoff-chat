@@ -53,6 +53,7 @@ class ConversationsListViewController: UIViewController {
     
     private func configureNavigationPane() {
         navigationItem.title = "Tinkoff Chat"
+        navigationController?.navigationBar.prefersLargeTitles = true
 
         let leftItem = UIBarButtonItem(title: "Темы",
                                        style: .plain,
@@ -65,8 +66,6 @@ class ConversationsListViewController: UIViewController {
                                         target: self,
                                         action: #selector(profile))
         navigationItem.setRightBarButton(rightItem, animated: true)
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func configureTableView() {
@@ -105,10 +104,6 @@ class ConversationsListViewController: UIViewController {
         emitter = Emitter(view: navigationController.view)
         
         present(navigationController, animated: true)
-    }
-    
-    func reloadData() {
-        tableView.reloadData()
     }
     
 }

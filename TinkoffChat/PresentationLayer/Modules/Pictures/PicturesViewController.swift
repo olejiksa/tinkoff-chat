@@ -77,7 +77,7 @@ class PicturesViewController: UIViewController {
                 }
             } else {
                 self?.spinner.stopAnimating()
-                self?.showErrorMessage(error)
+                self?.showErrorMessage()
             }
         }
     }
@@ -92,8 +92,13 @@ class PicturesViewController: UIViewController {
         navigationItem.setRightBarButton(rightItem, animated: true)
     }
     
-    private func showErrorMessage(_ message: String?) {
+    private func showErrorMessage(askCheck: Bool = false) {
         DispatchQueue.main.async {
+            var message = "Не удается загрузить изображение."
+            if askCheck {
+                message += " Проверьте доступ к сети."
+            }
+            
             let alertController = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "ОК", style: .cancel))
             self.present(alertController, animated: true)
@@ -141,7 +146,7 @@ extension PicturesViewController: UICollectionViewDataSource {
         if let cell = collectionView.cellForItem(at: indexPath) as? PictureCell {
             DispatchQueue.global(qos: .userInteractive).async {
                 guard let url = cell.largeImageUrl else {
-                    self.showErrorMessage("Не удается загрузить изображение.")
+                    self.showErrorMessage()
                     return
                 }
                 
@@ -156,7 +161,7 @@ extension PicturesViewController: UICollectionViewDataSource {
                         self.spinner.stopAnimating()
                         
                         guard let image = image else {
-                            self.showErrorMessage("Не удается загрузить изображение. Проверьте доступ к сети.")
+                            self.showErrorMessage(askCheck: true)
                             return
                         }
                         

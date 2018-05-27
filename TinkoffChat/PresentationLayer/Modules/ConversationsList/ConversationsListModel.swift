@@ -36,13 +36,13 @@ class ConversationsListModel: IConversationsListModel {
     }
     
     // MARK: - Themes
-        
+    
     func restoreThemeSettings() {
-        themesService.load()
+        themesService.load(completion: nil)
     }
     
     func saveSettings(for theme: UIColor) {
-        themesService.save(theme)
+        themesService.save(theme, completion: nil)
     }
     
     // MARK: - ConversationModel

@@ -6,10 +6,8 @@
 //  Copyright © 2018 Oleg Samoylov. All rights reserved.
 //
 
-import Foundation
-
 class RootAssembly {
-    lazy var presentationAssembly: IPresentationAssembly = PresentationAssembly(serviceAssembly: self.servicesAssembly)
-    private lazy var servicesAssembly: IServicesAssembly = ServicesAssembly(coreAssembly: self.coreAssembly)
+    lazy var presentationAssembly: IPresentationAssembly = PresentationAssembly(serviceAssembly: servicesAssembly)
+    private lazy var servicesAssembly: IServicesAssembly = ServicesAssembly(coreAssembly: coreAssembly)
     private lazy var coreAssembly: ICoreAssembly = CoreAssembly()
 }
