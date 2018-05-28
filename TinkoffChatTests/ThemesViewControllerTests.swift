@@ -25,7 +25,9 @@ class ThemesViewControllerTests: XCTestCase {
     override func setUp() {
         themesMock = ThemesMock()
         
-        let model: IThemesModel = ThemesModel(theme1: themes[0], theme2: themes[1], theme3: themes[2], closure: { vc, color in
+        let manager: IThemesManager = ThemesManager()
+        let service: IThemesService = ThemesService(themesManager: manager)
+        let model: IThemesModel = ThemesModel(theme1: themes[0], theme2: themes[1], theme3: themes[2], themesService: service, closure: { vc, color in
             vc.view.backgroundColor = color
         })
         

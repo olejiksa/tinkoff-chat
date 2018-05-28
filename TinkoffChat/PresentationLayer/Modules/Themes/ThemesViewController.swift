@@ -68,6 +68,13 @@ class ThemesViewController: UIViewController, ThemesSelector {
         mock?.didThemeButtonTap(sender)
     }
     
+    @IBAction func didInvertButtonTap() {
+        guard let color = view.backgroundColor else { return }
+        
+        model.invert(color)
+        model.closure(self, color.invertedColor)
+    }
+    
     // MARK: - Private methods
     
     private func configureNavigationPane() {
