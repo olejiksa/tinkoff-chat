@@ -253,8 +253,6 @@ class ProfileViewController: UIViewController {
     // MARK: - Other
     
     private func setDelegates() {
-        aboutTextView.delegate = self
-        usernameTextField.delegate = self
         model.setPermissionsDelegate(self)
     }
     

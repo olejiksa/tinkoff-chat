@@ -61,7 +61,6 @@ class PicturesViewController: UIViewController {
     
     private func configureCollectionView() {
         collectionView.register(UINib(nibName: "PictureCell", bundle: nil), forCellWithReuseIdentifier: "PictureCell")
-        collectionView.dataSource = self
         collectionView.delegate = self as UICollectionViewDelegate
     }
     

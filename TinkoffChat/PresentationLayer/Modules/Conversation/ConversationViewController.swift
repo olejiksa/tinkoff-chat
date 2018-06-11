@@ -109,9 +109,6 @@ class ConversationViewController: UIViewController {
                            forCellReuseIdentifier: "MessageIn")
         tableView.register(UINib(nibName: "OutcomingMessageCell", bundle: nil),
                            forCellReuseIdentifier: "MessageOut")
-        
-        tableView.dataSource = self
-        tableView.delegate = self as? UITableViewDelegate
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     

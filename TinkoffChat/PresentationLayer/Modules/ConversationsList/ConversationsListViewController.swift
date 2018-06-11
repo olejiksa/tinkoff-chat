@@ -69,8 +69,6 @@ class ConversationsListViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.register(UINib(nibName: "\(ConversationCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ConversationCell.self)")
     }
