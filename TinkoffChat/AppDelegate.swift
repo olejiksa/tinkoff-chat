@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
     private let rootAssembly = RootAssembly()
     private var emitter: Emitter!
 
@@ -20,9 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let controller = rootAssembly.presentationAssembly.conversationsListViewController()
-        
-        let navigationController = UINavigationController()
-        navigationController.viewControllers = [controller]
+        let navigationController = UINavigationController(rootViewController: controller)
 
         emitter = Emitter(view: navigationController.view)
         

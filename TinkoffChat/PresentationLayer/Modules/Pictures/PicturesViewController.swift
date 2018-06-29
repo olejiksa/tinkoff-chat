@@ -125,7 +125,7 @@ extension PicturesViewController: UICollectionViewDataSource {
         if let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? PictureCell {
             cell = dequeuedCell
         } else {
-            cell = PictureCell(frame: CGRect.zero)
+            cell = PictureCell(frame: .zero)
         }
         
         let picture = model.data[indexPath.item]

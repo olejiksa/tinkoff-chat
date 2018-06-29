@@ -248,7 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				EBF0F021208B649600287352 /* PresentationLayer */,
-				EBF0F022208B64A200287352 /* ServiceLayer */,
+				EBF0F022208B64A200287352 /* ServicesLayer */,
 				EBF0F023208B64AD00287352 /* CoreLayer */,
 				EB36979A203DD3620065EC99 /* AppDelegate.swift */,
 				EBF0F01F208B62EF00287352 /* RootAssembly.swift */,
@@ -308,8 +308,8 @@
 			isa = PBXGroup;
 			children = (
 				EB3697A1203DD3620065EC99 /* Assets.xcassets */,
-				EB3697A6203DD3620065EC99 /* Info.plist */,
 				EB3697A3203DD3620065EC99 /* LaunchScreen.storyboard */,
+				EB3697A6203DD3620065EC99 /* Info.plist */,
 				EB27ED8C20796AE800722846 /* Storage.xcdatamodeld */,
 			);
 			path = "Supporting Files";
@@ -325,7 +325,7 @@
 			path = PresentationLayer;
 			sourceTree = "<group>";
 		};
-		EBF0F022208B64A200287352 /* ServiceLayer */ = {
+		EBF0F022208B64A200287352 /* ServicesLayer */ = {
 			isa = PBXGroup;
 			children = (
 				EBF0F025208B64D800287352 /* Assembly */,
@@ -335,7 +335,7 @@
 				EB257733209730EC002AACA7 /* Pictures */,
 				EBF0F059208F7E0400287352 /* Themes */,
 			);
-			path = ServiceLayer;
+			path = ServicesLayer;
 			sourceTree = "<group>";
 		};
 		EBF0F023208B64AD00287352 /* CoreLayer */ = {

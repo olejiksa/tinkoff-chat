@@ -1,5 +1,5 @@
 //
-//  ServiceAssembly.swift
+//  ServicesAssembly.swift
 //  TinkoffChat
 //
 //  Created by Олег Самойлов on 21/04/2018.

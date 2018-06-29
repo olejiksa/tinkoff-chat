@@ -15,12 +15,14 @@ struct RequestFactory {
         static func searchImages() -> RequestConfig<SearchImagesParser> {
             let request = SearchImagesRequest(key: apiKey)
             let parser = SearchImagesParser()
+            
             return RequestConfig<SearchImagesParser>(request: request, parser: parser)
         }
         
         static func downloadImage(urlString: String) -> RequestConfig<DownloadImageParser> {
             let request = DownloadImageRequest(urlString: urlString)
             let parser = DownloadImageParser()
+            
             return RequestConfig<DownloadImageParser>(request: request, parser: parser)
         }
         
